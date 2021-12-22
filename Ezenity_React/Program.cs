@@ -21,7 +21,7 @@ namespace Ezenity_React
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     // This will allow to you to override the default builder using the fluent APIs
-                    webBuilder.UseContentRoot("some-path");
+                    //webBuilder.UseContentRoot("some-path");
 
                     webBuilder.UseStartup<Startup>();
                 });
