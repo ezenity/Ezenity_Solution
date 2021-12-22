@@ -33,6 +33,10 @@ namespace Ezenity_React
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // The custom logger is invoked at the start of the pipeline s othat the request is
+            // logged before it is handled by any other middleware.
+            app.UseCustomLogger();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
