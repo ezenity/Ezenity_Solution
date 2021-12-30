@@ -48,3 +48,8 @@ const questions: QuestionData[] = [
     answers: [],
   },
 ];
+
+// Function that returns unanswered questions
+export const getUnansweredQuestions = (): QuestionData[] => {
+  return questions.filter(q => q.answers.length === 0);
+};
