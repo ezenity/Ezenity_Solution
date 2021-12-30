@@ -9,7 +9,6 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <ProblemComponent />
                 <img src={logo} className="App-logo" alt="logo" />
                 <p>
                     Edit <code>src/App.tsx</code> and save to reload. Here is a edit.
@@ -30,6 +29,9 @@ function App() {
 
 export default App;
 
+// Add inside the <header> ... <header/> dic
+// // <ProblemComponent />
+// to see error message example in the 'browser console'
 
 // This is an old API usage
 // // Refs is short for references but is more often
@@ -38,8 +40,8 @@ export default App;
 // // usage.
 // this React ref feature allows us to access the DOM node. 
 // // More Info here: https://reactjs.org/docs/refs-and-the-dom.html
-class ProblemComponent extends React.Component {
-    render() {
-        return <div ref="div" />;
-    }
-}
+//class ProblemComponent extends React.Component {
+//    render() {
+//        return <div ref="div" />;
+//    }
+//}
