@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 import logo from './logo.svg';
+import { UserIcon } from './Icons';
 
 // const: Allows you to declare and initialize a variable where its reference won't change later in the program
 // let: allows you to delcare a variable where its reference can change later in the program
@@ -15,6 +16,7 @@ export const Header = () => (
       <a href="./">Q & A</a>
       <input type="text" placeholder="Search.." />
       <a href="./signin">
+        <UserIcon />
         <span>Sign In</span>
       </a>
     </div>
