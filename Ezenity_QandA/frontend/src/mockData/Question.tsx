@@ -5,7 +5,9 @@ interface Props {
   data: QuestionData;
 }
 
-export const Question = ({ data }: Props) => {
+// here we will use the 'toLocale' on the dates to display the different
+// country formats based on the browser's locale.
+export const Question = ({ data }: Props) => (
   <div>
     <div>
       {data.title}
@@ -14,4 +16,4 @@ export const Question = ({ data }: Props) => {
       {'Asked by ${data.userName} on ${data.created.toLocaleDateString()} ${data.created.toLocaleTimeString()}'}
     </div>
   </div>
-}
+);
