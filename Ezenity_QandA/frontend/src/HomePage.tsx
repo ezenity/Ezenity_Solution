@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { QuestionList } from './mockData/QuestionList';
-import { getUnansweredQuestions } from './mockData/QuestionsData';
+import { getUnansweredQuestions, QuestionData } from './mockData/QuestionsData';
 import { Page } from './Page';
 import { PageTitle } from './PageTitle';
 
@@ -11,6 +11,10 @@ import { PageTitle } from './PageTitle';
 //        renderItem = {(question) => <div>{question.title}</div>}
 //     />
 export const HomePage = () => {
+  const [
+    questions,
+    setQuestions,
+  ] = React.useState<QuestionData[]>([]);
   React.useEffect(() => {
     console.log('first rendered');
   }, []);
