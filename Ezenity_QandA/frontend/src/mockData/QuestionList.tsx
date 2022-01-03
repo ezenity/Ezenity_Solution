@@ -6,7 +6,7 @@ import { QuestionsWithOptional } from './Question';
 /*
  * Presentational Component
  *  => Responsible for how things look
- *  => ie. receive data via their props, and also hjave property event handlers 
+ *  => ie. receive data via their props, and also have property event handlers
  *      so that their containers can manage user interactions
  * renderItem: is a function that takes in a parameter containing the question and
  * returns a JSX element

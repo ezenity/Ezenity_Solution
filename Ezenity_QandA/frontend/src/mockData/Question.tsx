@@ -4,7 +4,7 @@ import { QuestionData } from './QuestionsData';
 /*
  * Presentational Component
  *  => Responsible for how things look
- *  => ie. receive data via their props, and also hjave property event handlers 
+ *  => ie. receive data via their props, and also hjave property event handlers
  *      so that their containers can manage user interactions
  */
 interface Props {
