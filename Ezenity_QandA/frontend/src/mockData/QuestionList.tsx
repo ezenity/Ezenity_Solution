@@ -4,9 +4,13 @@ import { QuestionsNotAnswered } from './Question';
 import { QuestionsWithOptional } from './Question';
 
 /*
+ * Presentational Component
+ *  => Responsible for how things look
+ *  => ie. receive data via their props, and also hjave property event handlers 
+ *      so that their containers can manage user interactions
  * renderItem: is a function that takes in a parameter containing the question and
  * returns a JSX element
- * */
+ */
 interface Props {
   data: QuestionData[];
   renderItem?: (item: QuestionData) => JSX.Element;

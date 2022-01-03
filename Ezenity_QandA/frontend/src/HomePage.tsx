@@ -4,7 +4,9 @@ import { getUnansweredQuestions, QuestionData } from './mockData/QuestionsData';
 import { Page } from './Page';
 import { PageTitle } from './PageTitle';
 
-// HomePage Component
+// HomePage Component (Container Component)
+//  => Responsbile for how things work
+//  => ie. fetching any data from web API, and managing state
 // Below is an example of a 'Render Prop'
 //     <QuestionList
 //        data = { getUnansweredQuestions() }

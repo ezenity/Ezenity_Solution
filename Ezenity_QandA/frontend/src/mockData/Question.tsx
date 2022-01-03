@@ -1,6 +1,12 @@
 ﻿import React from 'react';
 import { QuestionData } from './QuestionsData';
 
+/*
+ * Presentational Component
+ *  => Responsible for how things look
+ *  => ie. receive data via their props, and also hjave property event handlers 
+ *      so that their containers can manage user interactions
+ */
 interface Props {
   data: QuestionData;
   showContent?: boolean; // Adding '?' makes it so that this prop doesn't have to be added to the component that it is being passed in
