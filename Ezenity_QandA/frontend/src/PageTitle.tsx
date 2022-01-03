@@ -1,5 +1,6 @@
 ﻿/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import { PageTitleStyle } from './css/Styles';
 
 // Define the children prop with a type annotation of ReactNode
 interface Props {
@@ -10,16 +11,5 @@ interface Props {
 // This means that the child elements that consume components
 // specify will be placed inside the h2 element.
 export const PageTitle = ({ children }: Props) => {
-  return (
-    <h2
-      css={css`
-        font-size: 15px;
-        font-weight: bold;
-        margin: 10px 0 5px;
-        text-transform: uppercase;
-      `}
-    >
-      {children}
-    </h2>
-  );
+  return <PageTitleStyle>{children}</PageTitleStyle>;
 };
