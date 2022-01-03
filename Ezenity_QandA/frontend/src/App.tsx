@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { fontFamily, fontSize, gray2 } from './css/Styles';
+import { fontFamily, fontSize, gray2 } from './assets/css/Styles';
 import { Header } from './Header';
 import { HomePage } from './HomePage';
 

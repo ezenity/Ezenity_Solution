@@ -6,7 +6,7 @@ import {
   displayFlex,
   justifyContentSpaceBetween,
   PrimaryButton,
-} from './css/Styles';
+} from './assets/css/Styles';
 import { QuestionList } from './mockData/QuestionList';
 import { getUnansweredQuestions, QuestionData } from './mockData/QuestionsData';
 import { Page } from './Page';
