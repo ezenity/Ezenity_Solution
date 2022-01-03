@@ -1,7 +1,20 @@
-﻿import React from 'react';
-import logo from './logo.svg';
+﻿/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import {
+  fontFamily,
+  fontSize,
+  gray1,
+  gray2,
+  gray5,
+  widthMax,
+  positionFixed,
+  displayFlex,
+  alignItemsCenter,
+  justifyContentSpaceBetween,
+  borderBottomSolidGray5,
+  boxShadow,
+} from './css/Styles';
 import { UserIcon } from './Icons';
-import styles from './Header.module.css';
 
 // const: Allows you to declare and initialize a variable where its reference won't change later in the program
 // let: allows you to delcare a variable where its reference can change later in the program
@@ -16,15 +29,70 @@ export const Header = () => {
   };
   return (
     <header className="App-header">
-      {/* <img src={logo} className="App-logo" alt="logo" /> */}
-      <div className={styles.container}>
-        <a href="./">Q & A</a>
+      <div
+        css={css`
+          position: ${positionFixed};
+          box-sizing: border-box;
+          top: 0;
+          width: ${widthMax};
+          display: ${displayFlex};
+          align-items: ${alignItemsCenter};
+          justify-content: ${justifyContentSpaceBetween};
+          padding: 10px 20px;
+          background-color: #fff;
+          border-bottom: ${borderBottomSolidGray5};
+          box-shadow: ${boxShadow};
+        `}
+      >
+        <a
+          href="./"
+          css={css`
+            font-size: 24px;
+            font-weight: bold;
+            color: ${gray1};
+            text-decoration: none;
+          `}
+        >
+          Q & A
+        </a>
         <input
           type="text"
           placeholder="Search.."
           onChange={handleSearchInputChange}
+          css={css`
+            box-sizing: border-box;
+            font-family: ${fontFamily};
+            font-size: ${fontSize};
+            padding: 8px 10px;
+            border: 1px solid ${gray5};
+            border-radius: 3px;
+            color: ${gray2};
+            background-color: white;
+            width: 200px;
+            height: 30px;
+            :focus {
+              outline-color: ${gray5};
+            }
+          `}
         />
-        <a href="./signin">
+        <a
+          href="./signin"
+          css={css`
+            font-family: ${fontFamily};
+            font-size: ${fontSize};
+            padding: 5px 10px;
+            background-color: transparent;
+            color: ${gray2};
+            text-decoration: none;
+            cursor: pointer;
+            :focus {
+              outline-color: ${gray5};
+            }
+            span {
+              margin-left: 7px;
+            }
+          `}
+        >
           <UserIcon />
           <span>Sign In</span>
         </a>

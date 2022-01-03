@@ -1,4 +1,6 @@
-﻿import React from 'react';
+﻿/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import { gray2, gray3 } from '../css/Styles';
 import { QuestionData } from './QuestionsData';
 
 /*
@@ -15,9 +17,26 @@ interface Props {
 // here we will use the 'toLocale' on the dates to display the different
 // country formats based on the browser's locale.
 export const QuestionsNotAnswered = ({ data }: Props) => (
-  <div>
-    <div>{data.title}</div>
-    <div>
+  <div
+    css={css`
+      padding: 10px 0px;
+    `}
+  >
+    <div
+      css={css`
+        padding: 10px 0;
+        font-size: 19px;
+      `}
+    >
+      {data.title}
+    </div>
+    <div
+      css={css`
+        font-size: 12px;
+        font-style: italic;
+        color: ${gray3};
+      `}
+    >
       {`Asked by ${data.userName}
         on ${data.created.toLocaleDateString()} ${data.created.toLocaleTimeString()}`}
     </div>
@@ -27,16 +46,39 @@ export const QuestionsNotAnswered = ({ data }: Props) => (
 // Here will demostrate that props can be optional so that the consumer doesn't nexessarily have
 // to pass it into a component.
 export const QuestionsWithOptional = ({ data, showContent }: Props) => (
-  <div>
-    <div>{data.title}</div>
+  <div
+    css={css`
+      padding: 10px 0px;
+    `}
+  >
+    <div
+      css={css`
+        padding: 10px 0;
+        font-size: 19px;
+      `}
+    >
+      {data.title}
+    </div>
     {showContent && (
-      <div>
+      <div
+        css={css`
+          padding-bottom: 10px;
+          font-size: 15px;
+          color: ${gray2};
+        `}
+      >
         {data.content.length > 50
           ? `${data.content.substring(0, 50)}...`
           : data.content}
       </div>
     )}
-    <div>
+    <div
+      css={css`
+        font-size: 12px;
+        font-style: italic;
+        color: ${gray3};
+      `}
+    >
       {`Asked by ${data.userName}
         on ${data.created.toLocaleDateString()} ${data.created.toLocaleTimeString()}`}
     </div>

@@ -1,4 +1,12 @@
-﻿import React from 'react';
+﻿/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import React from 'react';
+import {
+  alignItemsCenter,
+  displayFlex,
+  justifyContentSpaceBetween,
+  PrimaryButton,
+} from './css/Styles';
 import { QuestionList } from './mockData/QuestionList';
 import { getUnansweredQuestions, QuestionData } from './mockData/QuestionsData';
 import { Page } from './Page';
@@ -29,9 +37,17 @@ export const HomePage = () => {
   };
   return (
     <Page>
-      <div>
+      <div
+        css={css`
+          display: ${displayFlex};
+          align-items: ${alignItemsCenter};
+          justify-content: ${justifyContentSpaceBetween};
+        `}
+      >
         <PageTitle>Unanswered Questions</PageTitle>
-        <button onClick={handleAskQuestionClick}>Ask a question</button>
+        <PrimaryButton onClick={handleAskQuestionClick}>
+          Ask a question
+        </PrimaryButton>
       </div>
       {questionsLoading ? (
         <div>Loading...</div>
