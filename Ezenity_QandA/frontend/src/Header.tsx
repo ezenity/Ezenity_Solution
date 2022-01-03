@@ -15,7 +15,7 @@ export const Header = () => {
   };
   return (
     <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
+      {/* <img src={logo} className="App-logo" alt="logo" /> */}
       <div>
         <a href="./">Q & A</a>
         <input
