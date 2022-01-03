@@ -13,7 +13,7 @@ import {
   justifyContentSpaceBetween,
   borderBottomSolidGray5,
   boxShadow,
-} from './css/Styles';
+} from './assets/css/Styles';
 import { UserIcon } from './Icons';
 
 // const: Allows you to declare and initialize a variable where its reference won't change later in the program

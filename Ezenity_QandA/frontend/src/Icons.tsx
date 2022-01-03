@@ -1,6 +1,6 @@
 ﻿/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import user from './user.svg';
+import user from './assets/images/user.svg';
 
 export const UserIcon = () => {
   return (
