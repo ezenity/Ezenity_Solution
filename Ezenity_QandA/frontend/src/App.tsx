@@ -8,7 +8,7 @@ function App() {
   //const unused = 'something';
   //debugger;
   return (
-    <div className="App">
+    <div className="App-container">
       <Header />
       <HomePage />
     </div>
