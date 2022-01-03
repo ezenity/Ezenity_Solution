@@ -11,6 +11,7 @@ import { QuestionList } from './mockData/QuestionList';
 import { getUnansweredQuestions, QuestionData } from './mockData/QuestionsData';
 import { Page } from './Page';
 import { PageTitle } from './PageTitle';
+import { useNavigate } from 'react-router-dom';
 
 // HomePage Component (Container Component)
 //  => Responsbile for how things work
@@ -32,8 +33,9 @@ export const HomePage = () => {
     };
     doGetUnansweredQuestions();
   }, []);
+  const navigate = useNavigate();
   const handleAskQuestionClick = () => {
-    console.log('TODO - move to the AskPage');
+    navigate('ask');
   };
   return (
     <Page>
