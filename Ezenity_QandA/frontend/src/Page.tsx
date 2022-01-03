@@ -4,7 +4,7 @@ import { PageTitle } from './PageTitle';
 
 // This component is taking an optional title prop and
 // renders this inside the PageTitle component. The
-// component also takes in a children prop. 
+// component also takes in a children prop.
 interface Props {
   title?: string;
   children: React.ReactNode;
