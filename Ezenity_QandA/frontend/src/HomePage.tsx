@@ -10,12 +10,14 @@ import { PageTitle } from './PageTitle';
 //        data = { getUnansweredQuestions() }
 //        renderItem = {(question) => <div>{question.title}</div>}
 //     />
-export const HomePage = () => (
-  <Page>
-    <div>
-      <PageTitle>Unanswered Questions</PageTitle>
-      <button>Ask a question</button>
-    </div>
-    {/*<QuestionList data={getUnansweredQuestions()} />*/}
-  </Page>
-);
+export const HomePage = () => {
+  return (
+    <Page>
+      <div>
+        <PageTitle>Unanswered Questions</PageTitle>
+        <button>Ask a question</button>
+      </div>
+      {/*<QuestionList data={getUnansweredQuestions()} />*/}
+    </Page>
+  );
+};
