@@ -28,7 +28,11 @@ export const QuestionList = ({ data, renderItem }: Props) => (
 
     {data.map((question) => (
       <li key={question.questionId}>
-        {renderItem ? renderItem(question) : <QuestionsWithOptional data={question} />}
+        {renderItem ? (
+          renderItem(question)
+        ) : (
+          <QuestionsWithOptional data={question} />
+        )}
       </li>
     ))}
   </ul>
