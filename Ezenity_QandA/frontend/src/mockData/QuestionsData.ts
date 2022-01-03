@@ -67,5 +67,5 @@ export const getUnansweredQuestions = async (): Promise<QuestionData[]> => {
 //     => Is a typeScript-specific type used to represent a non-returning function
 //     => Same as in .NET
 const wait = (ms: number): Promise<void> => {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 };

@@ -11,14 +11,8 @@ import { PageTitle } from './PageTitle';
 //        renderItem = {(question) => <div>{question.title}</div>}
 //     />
 export const HomePage = () => {
-  const [
-    questions,
-    setQuestions,
-  ] = React.useState<QuestionData[]>([]);
-  const [
-    questionsLoading,
-    setQuestionsLoading,
-  ] = React.useState(true);
+  const [questions, setQuestions] = React.useState<QuestionData[]>([]);
+  const [questionsLoading, setQuestionsLoading] = React.useState(true);
   React.useEffect(() => {
     console.log('first rendered');
     const doGetUnansweredQuestions = async () => {
