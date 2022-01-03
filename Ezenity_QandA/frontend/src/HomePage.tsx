@@ -23,6 +23,8 @@ export const HomePage = () => {
     console.log('first rendered');
     const doGetUnansweredQuestions = async () => {
       const unansweredQuestions = await getUnansweredQuestions();
+      setQuestions(unansweredQuestions);
+      setQuestionsLoading(false);
     };
     doGetUnansweredQuestions();
   }, []);
