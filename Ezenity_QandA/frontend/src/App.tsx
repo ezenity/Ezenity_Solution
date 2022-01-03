@@ -27,7 +27,7 @@ function App() {
           <Route path="" element={<HomePage />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="ask" element={<AskPage />} />
-          <Route path="signing" element={<SignInPage />} />
+          <Route path="signin" element={<SignInPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
