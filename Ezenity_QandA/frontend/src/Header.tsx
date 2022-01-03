@@ -9,16 +9,25 @@ import { UserIcon } from './Icons';
 // a single line then you can use the following statement below.
 // export const Header = () => <div>Header<div/>
 
-export const Header = () => (
-  <header className="App-header">
-    <img src={logo} className="App-logo" alt="logo" />
-    <div>
-      <a href="./">Q & A</a>
-      <input type="text" placeholder="Search.." />
-      <a href="./signin">
-        <UserIcon />
-        <span>Sign In</span>
-      </a>
-    </div>
-  </header>
-);
+export const Header = () => {
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.currentTarget.value);
+  };
+  return (
+    <header className="App-header">
+      <img src={logo} className="App-logo" alt="logo" />
+      <div>
+        <a href="./">Q & A</a>
+        <input
+          type="text"
+          placeholder="Search.."
+          onChange={handleSearchInputChange}
+        />
+        <a href="./signin">
+          <UserIcon />
+          <span>Sign In</span>
+        </a>
+      </div>
+    </header>
+  );
+};
