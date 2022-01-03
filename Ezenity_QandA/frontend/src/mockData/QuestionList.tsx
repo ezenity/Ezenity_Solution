@@ -12,8 +12,9 @@ interface Props {
   renderItem?: (item: QuestionData) => JSX.Element;
 }
 
-export const QuestionList = ({ data, renderItem }: Props) => (
-  <ul>
+/*
+ * Here are other examples of mapping a question list:
+ * 
     {data.map((question) => (
       <li key={question.questionId}>
         <QuestionsNotAnswered data={question} />
@@ -25,7 +26,9 @@ export const QuestionList = ({ data, renderItem }: Props) => (
         <QuestionsWithOptional data={question} />
       </li>
     ))}
-
+  */
+export const QuestionList = ({ data, renderItem }: Props) => (
+  <ul>
     {data.map((question) => (
       <li key={question.questionId}>
         {renderItem ? (
