@@ -28,8 +28,13 @@ export const HomePage = () => {
         <PageTitle>Unanswered Questions</PageTitle>
         <button>Ask a question</button>
       </div>
+      {questionsLoading ? (
+        <div>Loading...</div>
+      ) : (
+          <QuestionList data={questions || []} />
+      )}
       {/*<QuestionList data={getUnansweredQuestions()} />*/}
-      <QuestionList data={questions} />
+      {/*<QuestionList data={questions} />*/}
     </Page>
   );
 };
