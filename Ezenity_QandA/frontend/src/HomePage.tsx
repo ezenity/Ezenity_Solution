@@ -21,6 +21,10 @@ export const HomePage = () => {
   ] = React.useState(true);
   React.useEffect(() => {
     console.log('first rendered');
+    const doGetUnansweredQuestions = async () => {
+      const unansweredQuestions = await getUnansweredQuestions();
+    };
+    doGetUnansweredQuestions();
   }, []);
   return (
     <Page>
