@@ -35,6 +35,7 @@ export const HomePage = () => {
         <button>Ask a question</button>
       </div>
       {/*<QuestionList data={getUnansweredQuestions()} />*/}
+      <QuestionList data={questions} />
     </Page>
   );
 };
