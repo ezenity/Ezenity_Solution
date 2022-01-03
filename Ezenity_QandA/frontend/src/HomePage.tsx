@@ -31,7 +31,7 @@ export const HomePage = () => {
       {questionsLoading ? (
         <div>Loading...</div>
       ) : (
-          <QuestionList data={questions || []} />
+        <QuestionList data={questions || []} />
       )}
       {/*<QuestionList data={getUnansweredQuestions()} />*/}
       {/*<QuestionList data={questions} />*/}
