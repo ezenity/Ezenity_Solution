@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import styles from './App.module.css';
 import { Header } from './Header';
 import { HomePage } from './HomePage';
 
@@ -8,7 +8,7 @@ function App() {
   //const unused = 'something';
   //debugger;
   return (
-    <div className="App-container">
+    <div className={styles.container}>
       <Header />
       <HomePage />
     </div>

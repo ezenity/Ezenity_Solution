@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import logo from './logo.svg';
 import { UserIcon } from './Icons';
-import './Header.css';
+import styles from './Header.module.css';
 
 // const: Allows you to declare and initialize a variable where its reference won't change later in the program
 // let: allows you to delcare a variable where its reference can change later in the program
@@ -17,7 +17,7 @@ export const Header = () => {
   return (
     <header className="App-header">
       {/* <img src={logo} className="App-logo" alt="logo" /> */}
-      <div className="Header-container">
+      <div className={styles.container}>
         <a href="./">Q & A</a>
         <input
           type="text"
