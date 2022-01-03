@@ -11,6 +11,9 @@ import { PageTitle } from './PageTitle';
 //        renderItem = {(question) => <div>{question.title}</div>}
 //     />
 export const HomePage = () => {
+  React.useEffect(() => {
+    console.log('first rendered');
+  }, []);
   return (
     <Page>
       <div>
