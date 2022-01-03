@@ -15,6 +15,7 @@ import {
   boxShadow,
 } from './assets/css/Styles';
 import { UserIcon } from './Icons';
+import { Link } from 'react-router-dom';
 
 // const: Allows you to declare and initialize a variable where its reference won't change later in the program
 // let: allows you to delcare a variable where its reference can change later in the program
@@ -44,8 +45,8 @@ export const Header = () => {
           box-shadow: ${boxShadow};
         `}
       >
-        <a
-          href="./"
+        <Link
+          to="/"
           css={css`
             font-size: 24px;
             font-weight: bold;
@@ -54,7 +55,7 @@ export const Header = () => {
           `}
         >
           Q & A
-        </a>
+        </Link>
         <input
           type="text"
           placeholder="Search.."
@@ -75,8 +76,8 @@ export const Header = () => {
             }
           `}
         />
-        <a
-          href="./signin"
+        <Link
+          to="signin"
           css={css`
             font-family: ${fontFamily};
             font-size: ${fontSize};
@@ -95,7 +96,7 @@ export const Header = () => {
         >
           <UserIcon />
           <span>Sign In</span>
-        </a>
+        </Link>
       </div>
     </header>
   );
