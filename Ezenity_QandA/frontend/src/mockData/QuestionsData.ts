@@ -53,6 +53,19 @@ const questions: QuestionData[] = [
 ];
 
 // Function that returns unanswered questions
-export const getUnansweredQuestions = (): QuestionData[] => {
+export const getUnansweredQuestions = async (): Promise<QuestionData[]> => {
+  await wait(500);
   return questions.filter((q) => q.answers.length === 0);
+};
+
+// Asynchronous 'wait' function to help with simulating a web API call
+// This function will wait asynchronously for the number of milliseconds
+// we pass into it. This function uses the native JS 'setTimeout' function
+// internally so the it returns after the specified number of milliseconds
+//
+// Type: void
+//     => Is a typeScript-specific type used to represent a non-returning function
+//     => Same as in .NET
+const wait = (ms: number): Promise<void> => {
+  return new Promise(resolve => setTimeout(resolve, ms));
 };
