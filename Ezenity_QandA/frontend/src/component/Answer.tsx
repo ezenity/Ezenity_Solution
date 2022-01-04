@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import React from 'react';
-import { AnswerData } from './mockData/QuestionsData';
-import { gray3 } from './assets/css/Styles';
+import { AnswerData } from '../utils/QuestionsData';
+import { gray3 } from '../assets/css/Styles';
 
 /**
  * Simply contain the answer data

@@ -6,9 +6,9 @@ import {
   displayFlex,
   justifyContentSpaceBetween,
   PrimaryButton,
-} from './assets/css/Styles';
-import { QuestionList } from './mockData/QuestionList';
-import { getUnansweredQuestions, QuestionData } from './mockData/QuestionsData';
+} from '../assets/css/Styles';
+import { QuestionList } from './QuestionList';
+import { getUnansweredQuestions, QuestionData } from '../utils/QuestionsData';
 import { Page } from './Page';
 import { PageTitle } from './PageTitle';
 import { useNavigate } from 'react-router-dom';

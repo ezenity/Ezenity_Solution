@@ -1,7 +1,7 @@
 ﻿/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { gray2, gray3 } from '../assets/css/Styles';
-import { QuestionData } from './QuestionsData';
+import { QuestionData } from '../utils/QuestionsData';
 import { Link } from 'react-router-dom';
 
 /*

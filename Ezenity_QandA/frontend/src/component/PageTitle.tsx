@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { PageTitleStyle } from './assets/css/Styles';
+import { PageTitleStyle } from '../assets/css/Styles';
 
 // Define the children prop with a type annotation of ReactNode
 interface Props {

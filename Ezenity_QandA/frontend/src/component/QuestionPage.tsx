@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { gray3, gray6 } from './assets/css/Styles';
+import { gray3, gray6 } from '../assets/css/Styles';
 import { useParams } from 'react-router-dom';
 import { Page } from './Page';
-import { QuestionData, getQuestion } from './mockData/QuestionsData';
+import { QuestionData, getQuestion } from '../utils/QuestionsData';
 import React from 'react';
 import { AnswerList } from './AnswerList';
 

@@ -2,8 +2,8 @@
 import { css } from '@emotion/react';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { QuestionList } from './mockData/QuestionList';
-import { searchQuestions, QuestionData } from './mockData/QuestionsData';
+import { QuestionList } from './/QuestionList';
+import { searchQuestions, QuestionData } from '../utils/QuestionsData';
 import { Page } from './Page';
 
 /**

@@ -14,8 +14,8 @@ import {
   justifyContentSpaceBetween,
   borderBottomSolidGray5,
   boxShadow,
-} from './assets/css/Styles';
-import { UserIcon } from './Icons';
+} from '../assets/css/Styles';
+import { UserIcon } from '../utils/Icons';
 import { Link } from 'react-router-dom';
 
 // const: Allows you to declare and initialize a variable where its reference won't change later in the program
