@@ -1,14 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import React from 'react';
 import { fontFamily, fontSize, gray2 } from './assets/css/Styles';
 import { Header } from './component/Header';
 import { HomePage } from './component/HomePage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AskPage } from './component/AskPage';
 import { SearchPage } from './component/SearchPage';
 import { SignInPage } from './component/SignInPage';
 import { NotFoundPage } from './component/NotFoundPage';
 import { QuestionPage } from './component/QuestionPage';
+// import { AskPage } from './component/AskPage';
+const AskPage = React.lazy(() => import('./component/AskPage'));
 
 function App() {
   //const App: React.FC = () => {
@@ -27,7 +29,25 @@ function App() {
         <Routes>
           <Route path="" element={<HomePage />} />
           <Route path="search" element={<SearchPage />} />
-          <Route path="ask" element={<AskPage />} />
+          <Route
+            path="ask"
+            element={
+              <React.Suspense
+                fallback={
+                  <div
+                    css={css`
+                      margin-top: 100px;
+                      text-align: center;
+                    `}
+                  >
+                    Loading...
+                  </div>
+                }
+              >
+                <AskPage />
+              </React.Suspense>
+            }
+          />
           <Route path="signin" element={<SignInPage />} />
           <Route path="questions/:questionId" element={<QuestionPage />} />
           <Route path="*" element={<NotFoundPage />} />
