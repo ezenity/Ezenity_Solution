@@ -49,6 +49,7 @@ function App() {
             }
           />
           <Route path="signin" element={<SignInPage />} />
+          <Route path="login" element={<SignInPage />} />
           <Route path="questions/:questionId" element={<QuestionPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
