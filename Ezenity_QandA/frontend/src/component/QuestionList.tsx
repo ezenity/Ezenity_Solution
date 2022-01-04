@@ -1,9 +1,8 @@
 ﻿/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
-import { QuestionData } from './QuestionsData';
-import { QuestionsNotAnswered } from './Question';
-import { QuestionsWithOptional } from './Question';
+import { QuestionData } from '../utils/QuestionsData';
+import { QuestionsWithOptional, QuestionsNotAnswered } from './Question';
 
 import { accent2, fontSize, gray5 } from '../assets/css/Styles';
 

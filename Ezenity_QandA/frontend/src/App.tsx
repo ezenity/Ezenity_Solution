@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { fontFamily, fontSize, gray2 } from './assets/css/Styles';
-import { Header } from './Header';
-import { HomePage } from './HomePage';
+import { Header } from './component/Header';
+import { HomePage } from './component/HomePage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AskPage } from './AskPage';
-import { SearchPage } from './SearchPage';
-import { SignInPage } from './SignInPage';
-import { NotFoundPage } from './NotFoundPage';
-import { QuestionPage } from './QuestionPage';
+import { AskPage } from './component/AskPage';
+import { SearchPage } from './component/SearchPage';
+import { SignInPage } from './component/SignInPage';
+import { NotFoundPage } from './component/NotFoundPage';
+import { QuestionPage } from './component/QuestionPage';
 
 function App() {
   //const App: React.FC = () => {
