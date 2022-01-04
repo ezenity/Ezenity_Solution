@@ -1,5 +1,6 @@
 ﻿/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import React from 'react';
 import { PageTitle } from './PageTitle';
 
 // This component is taking an optional title prop and

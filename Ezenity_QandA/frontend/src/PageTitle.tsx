@@ -1,5 +1,4 @@
-﻿/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
+﻿import React from 'react';
 import { PageTitleStyle } from './assets/css/Styles';
 
 // Define the children prop with a type annotation of ReactNode

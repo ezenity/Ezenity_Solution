@@ -1,4 +1,6 @@
-﻿// Defines the structure of the questions we expect to be working with
+﻿/**
+ * Defines the structure of the questions we expect to be working with
+ */
 export interface QuestionData {
   questionId: number;
   title: string;
@@ -8,7 +10,9 @@ export interface QuestionData {
   answers: AnswerData[];
 }
 
-// Interface for the structure of the answers we're expceting
+/**
+ * Interface for the structure of the answers we're expecting
+ */
 export interface AnswerData {
   answerId: number;
   content: string;
@@ -51,6 +55,24 @@ const questions: QuestionData[] = [
     answers: [],
   },
 ];
+
+/**
+ * Simulate a web request for getting a question.
+ * -----
+ * We are also using a 'union type' in the functions
+ * return type. Union type os a mechanism for defining the
+ * type that contains values from multiple types.
+ * -----
+ * @param questionId an ID used to determine the question
+ * @returns an object of the QuestionData or null
+ */
+export const getQuestion = async (
+  questionId: number,
+): Promise<QuestionData | null> => {
+  await wait(500);
+  const results = questions.filter((q) => q.questionId === questionId);
+  return results.length === 0 ? null : results[0];
+};
 
 // Function that returns unanswered questions
 export const getUnansweredQuestions = async (): Promise<QuestionData[]> => {
