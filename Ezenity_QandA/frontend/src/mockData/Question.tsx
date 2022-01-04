@@ -2,6 +2,7 @@
 import { css } from '@emotion/react';
 import { gray2, gray3 } from '../assets/css/Styles';
 import { QuestionData } from './QuestionsData';
+import { Link } from 'react-router-dom';
 
 /*
  * Presentational Component
@@ -22,14 +23,15 @@ export const QuestionsNotAnswered = ({ data }: Props) => (
       padding: 10px 0px;
     `}
   >
-    <div
+    <Link
       css={css`
         padding: 10px 0;
         font-size: 19px;
       `}
+      to={`/questions/${data.questionId}`}
     >
       {data.title}
-    </div>
+    </Link>
     <div
       css={css`
         font-size: 12px;
@@ -51,14 +53,15 @@ export const QuestionsWithOptional = ({ data, showContent }: Props) => (
       padding: 10px 0px;
     `}
   >
-    <div
+    <Link
       css={css`
         padding: 10px 0;
         font-size: 19px;
       `}
+      to={`/questions/${data.questionId}`}
     >
       {data.title}
-    </div>
+    </Link>
     {showContent && (
       <div
         css={css`
