@@ -1,6 +1,6 @@
-/** @jsximportSource @emotion/react */
-import { css } from '@emotion/react';
+/** @jsxImportSource @emotion/react */
 import React from 'react';
+import { css } from '@emotion/react';
 import { AnswerData } from './mockData/QuestionsData';
 import { Answer } from './Answer';
 import { gray5 } from './assets/css/Styles';
