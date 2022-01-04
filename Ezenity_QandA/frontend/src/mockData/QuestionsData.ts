@@ -91,3 +91,20 @@ export const getUnansweredQuestions = async (): Promise<QuestionData[]> => {
 const wait = (ms: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
+
+/**
+ * A function to simulate a search via web request
+ * ----
+ * We use a array filter and match the criteria to any part of the question title
+ * or content
+ */
+export const searchQuestions = async (
+  criteria: string,
+): Promise<QuestionData[]> => {
+  await wait(500);
+  return questions.filter(
+    (q) =>
+      q.title.toLowerCase().indexOf(criteria.toLowerCase()) >= 0 ||
+      q.content.toLowerCase().indexOf(criteria.toLowerCase()) >= 0,
+  );
+};
