@@ -124,7 +124,7 @@ const baseFieldCSS = css`
 /**
  * Styled component for an input element with the Common CSS variable
  */
-export const fieldInput = styled.input`
+export const FieldInput = styled.input`
   ${baseFieldCSS}
   height: 100px;
 `;
@@ -132,7 +132,7 @@ export const fieldInput = styled.input`
 /**
  * Styled component for the textarea element with the Common CSS variable
  */
-export const fieldTextArea = styled.textarea`
+export const FieldTextArea = styled.textarea`
   ${baseFieldCSS}
   height: 100px;
 `;
@@ -148,7 +148,7 @@ export const FieldError = styled.div`
 /**
  * Styled compoment for a container for the form  submit button
  */
-export const FormButtoncontainer = styled.div`
+export const FormButtonContainer = styled.div`
   margin: 30px 0px 0px 0px;
   padding: 20px 0px 0px 0px;
   border-top: 1px solid ${gray5};
