@@ -16,7 +16,7 @@ import {
   boxShadow,
 } from '../assets/css/Styles';
 import { UserIcon } from '../utils/Icons';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 // const: Allows you to declare and initialize a variable where its reference won't change later in the program
 // let: allows you to delcare a variable where its reference can change later in the program
@@ -26,8 +26,16 @@ import { Link } from 'react-router-dom';
 // export const Header = () => <div>Header<div/>
 
 export const Header = () => {
+  const [searchParams] = useSearchParams();
+  const criteria = searchParams.get('criteria') || '';
+  const [search, setSearch] = React.useState(criteria);
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.currentTarget.value);
+    // console.log(e.currentTarget.value);
+    setSearch(e.currentTarget.value);
+  };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(search);
   };
   return (
     <header className="App-header">
@@ -57,26 +65,29 @@ export const Header = () => {
         >
           Q & A
         </Link>
-        <input
-          type="text"
-          placeholder="Search.."
-          onChange={handleSearchInputChange}
-          css={css`
-            box-sizing: border-box;
-            font-family: ${fontFamily};
-            font-size: ${fontSize};
-            padding: 8px 10px;
-            border: 1px solid ${gray5};
-            border-radius: 3px;
-            color: ${gray2};
-            background-color: white;
-            width: 200px;
-            height: 30px;
-            :focus {
-              outline-color: ${gray5};
-            }
-          `}
-        />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Search.."
+            value={search}
+            onChange={handleSearchInputChange}
+            css={css`
+              box-sizing: border-box;
+              font-family: ${fontFamily};
+              font-size: ${fontSize};
+              padding: 8px 10px;
+              border: 1px solid ${gray5};
+              border-radius: 3px;
+              color: ${gray2};
+              background-color: white;
+              width: 200px;
+              height: 30px;
+              :focus {
+                outline-color: ${gray5};
+              }
+            `}
+          />
+        </form>
         <Link
           to="signin"
           css={css`
