@@ -17,6 +17,14 @@ import {
 } from '../assets/css/Styles';
 import { UserIcon } from '../utils/Icons';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+
+/**
+ * A type that will represent the form data
+ */
+type FormData = {
+  search: string;
+};
 
 // const: Allows you to declare and initialize a variable where its reference won't change later in the program
 // let: allows you to delcare a variable where its reference can change later in the program
@@ -26,16 +34,17 @@ import { Link, useSearchParams } from 'react-router-dom';
 // export const Header = () => <div>Header<div/>
 
 export const Header = () => {
+  const { register } = useForm<FormData>();
   const [searchParams] = useSearchParams();
   const criteria = searchParams.get('criteria') || '';
-  const [search, setSearch] = React.useState(criteria);
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log(e.currentTarget.value);
-    setSearch(e.currentTarget.value);
-  };
+  // const [search, setSearch] = React.useState(criteria);
+  // const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   // console.log(e.currentTarget.value);
+  //   setSearch(e.currentTarget.value);
+  // };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(search);
+    // console.log(search);
   };
   return (
     <header className="App-header">
@@ -67,10 +76,13 @@ export const Header = () => {
         </Link>
         <form onSubmit={handleSubmit}>
           <input
+            ref={register}
+            name="search"
             type="text"
             placeholder="Search.."
-            value={search}
-            onChange={handleSearchInputChange}
+            // value={search}
+            // onChange={handleSearchInputChange}
+            defaultValue={criteria}
             css={css`
               box-sizing: border-box;
               font-family: ${fontFamily};
