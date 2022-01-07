@@ -1,11 +1,28 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { gray3, gray6 } from '../assets/css/Styles';
 import { useParams } from 'react-router-dom';
 import { Page } from './Page';
 import { QuestionData, getQuestion } from '../utils/QuestionsData';
 import React from 'react';
 import { AnswerList } from './AnswerList';
+import {
+  gray3,
+  gray6,
+  Fieldset,
+  FieldContainer,
+  FieldLabel,
+  FieldTextArea,
+  FormButtonContainer,
+  PrimaryButton,
+} from '../assets/css/Styles';
+import { useForm } from 'react-hook-form';
+
+/**
+ * Type representing the form data
+ */
+type FormData = {
+  content: string;
+};
 
 export const QuestionPage = () => {
   const [question, setQuestion] = React.useState<QuestionData | null>(null);
@@ -19,6 +36,7 @@ export const QuestionPage = () => {
       doGetQuestion(Number(questionId));
     }
   }, [questionId]);
+  const { register } = useForm<FormData>();
   return (
     <Page>
       <div
@@ -61,6 +79,27 @@ export const QuestionPage = () => {
                 ${question.created.toLocaleTimeString()}`}
             </div>
             <AnswerList data={question.answers} />
+            <form
+              css={css`
+                margin-top: 20px;
+              `}
+            >
+              <Fieldset>
+                <FieldContainer>
+                  <FieldLabel htmlFor="content">Your Answer</FieldLabel>
+                  <FieldTextArea
+                    id="content"
+                    name="content"
+                    ref={register}
+                  ></FieldTextArea>
+                </FieldContainer>
+                <FormButtonContainer>
+                  <PrimaryButton type="submit">
+                    Submit Your Answer
+                  </PrimaryButton>
+                </FormButtonContainer>
+              </Fieldset>
+            </form>
           </React.Fragment>
         )}
       </div>
