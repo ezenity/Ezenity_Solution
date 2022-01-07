@@ -142,3 +142,85 @@ export const searchedQuestionsAction = (questions: QuestionData[]) =>
     type: SEARCHEDQUESTIONS,
     questions,
   } as const);
+
+/**
+ * ************************************************************
+ * Reducers
+ * ************************************************************
+ */
+
+/**
+ * Union type containing all the action types that will represent the redcuer action parameter
+ */
+type QuestionsActions =
+  | ReturnType<typeof gettingUnansweredQuestionsAction>
+  | ReturnType<typeof gotUnansweredQuestionsAction>
+  | ReturnType<typeof gettingQuestionAction>
+  | ReturnType<typeof gotQuestionAction>
+  | ReturnType<typeof searchingQuestionsAction>
+  | ReturnType<typeof searchedQuestionsAction>;
+
+/**
+ * Skeleton reducer function
+ * ----
+ * This will handle the actions defined above with a strongly typed set in the action parameter
+ */
+const questionsReducer = (
+  state = initialQuestionState,
+  action: QuestionsActions,
+) => {
+  switch (action.type) {
+    // Copy previous state into a new object and loading properties
+    case GETTINGUNANSWEREDQUESTIONS: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    // Copy previous state into a new object, set the unanswered and loading properties
+    case GOTANSWEREDQUESTIONS: {
+      return {
+        ...state,
+        unanswered: action.questions,
+        loading: false,
+      };
+    }
+    // Copy previous state into a new object, question being viewed is reset to null and
+    // the loading state is set to true while the server request is being made
+    case GETTINGQUESTION: {
+      return {
+        ...state,
+        viewing: null,
+        loading: true,
+      };
+    }
+    // Copy previous state into a new object, the question being viewed is set to the question
+    // from the action and the loading state is reset to false.
+    case GOTQUESTION: {
+      return {
+        ...state,
+        viewing: action.question,
+        loading: false,
+      };
+    }
+    // Copy previous state into a new object, the search results are initialized to an empty array
+    // and the loading state is set to true while the server request is being made
+    case SEARCHINGQUESTIONS: {
+      return {
+        ...state,
+        searched: [],
+        loading: true,
+      };
+    }
+    // Copy previous state into a new object, the searched results are being matched against questions
+    // from the search and the loading state is reset to false.
+    case SEARCHEDQUESTIONS: {
+      return {
+        ...state,
+        searched: action.questions,
+        loading: false,
+      };
+    }
+  }
+  return state;
+};
