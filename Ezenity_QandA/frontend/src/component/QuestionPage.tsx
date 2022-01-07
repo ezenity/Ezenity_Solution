@@ -14,6 +14,7 @@ import {
   FieldTextArea,
   FormButtonContainer,
   PrimaryButton,
+  FieldError,
 } from '../assets/css/Styles';
 import { useForm } from 'react-hook-form';
 
@@ -36,7 +37,12 @@ export const QuestionPage = () => {
       doGetQuestion(Number(questionId));
     }
   }, [questionId]);
-  const { register } = useForm<FormData>();
+  const {
+    register,
+    formState: { errors },
+  } = useForm<FormData>({
+    mode: 'onBlur',
+  });
   return (
     <Page>
       <div
@@ -90,8 +96,19 @@ export const QuestionPage = () => {
                   <FieldTextArea
                     id="content"
                     // name="content"
-                    {...register('content')}
+                    {...register('content', {
+                      required: true,
+                      minLength: 50,
+                    })}
                   ></FieldTextArea>
+                  {errors.content && errors.content.type === 'required' && (
+                    <FieldError>You must enter the answer.</FieldError>
+                  )}
+                  {errors.content && errors.content.type === 'minLength' && (
+                    <FieldError>
+                      the answer must be at least 50 characters long.
+                    </FieldError>
+                  )}
                 </FieldContainer>
                 <FormButtonContainer>
                   <PrimaryButton type="submit">
