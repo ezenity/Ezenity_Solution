@@ -2,7 +2,7 @@
 import { css } from '@emotion/react';
 import { useParams } from 'react-router-dom';
 import { Page } from './Page';
-import { QuestionData, getQuestion } from '../utils/QuestionsData';
+import { QuestionData, getQuestion, postAnswer } from '../utils/QuestionsData';
 import React from 'react';
 import { AnswerList } from './AnswerList';
 import {
@@ -15,6 +15,7 @@ import {
   FormButtonContainer,
   PrimaryButton,
   FieldError,
+  SubmissionSuccess,
 } from '../assets/css/Styles';
 import { useForm } from 'react-hook-form';
 
@@ -39,10 +40,22 @@ export const QuestionPage = () => {
   }, [questionId]);
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
+    handleSubmit,
   } = useForm<FormData>({
     mode: 'onBlur',
   });
+  const [successfullySubmitted, setSuccessfullySubmitted] =
+    React.useState(false);
+  const submitForm = async (data: FormData) => {
+    const result = await postAnswer({
+      questionId: question!.questionId,
+      content: data.content,
+      userName: 'AntMac',
+      created: new Date(),
+    });
+    setSuccessfullySubmitted(result ? true : false);
+  };
   return (
     <Page>
       <div
@@ -86,11 +99,12 @@ export const QuestionPage = () => {
             </div>
             <AnswerList data={question.answers} />
             <form
+              onSubmit={handleSubmit(submitForm)}
               css={css`
                 margin-top: 20px;
               `}
             >
-              <Fieldset>
+              <Fieldset disabled={isSubmitting || successfullySubmitted}>
                 <FieldContainer>
                   <FieldLabel htmlFor="content">Your Answer</FieldLabel>
                   <FieldTextArea
@@ -115,6 +129,11 @@ export const QuestionPage = () => {
                     Submit Your Answer
                   </PrimaryButton>
                 </FormButtonContainer>
+                {successfullySubmitted && (
+                  <SubmissionSuccess>
+                    Your answer was successfully submitted!
+                  </SubmissionSuccess>
+                )}
               </Fieldset>
             </form>
           </React.Fragment>

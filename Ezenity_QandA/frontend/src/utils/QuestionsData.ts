@@ -1,4 +1,6 @@
-﻿/**
+﻿import { Answer } from '../component/Answer';
+
+/**
  * Defines the structure of the questions we expect to be working with
  */
 export interface QuestionData {
@@ -107,4 +109,54 @@ export const searchQuestions = async (
       q.title.toLowerCase().indexOf(criteria.toLowerCase()) >= 0 ||
       q.content.toLowerCase().indexOf(criteria.toLowerCase()) >= 0,
   );
+};
+
+/**
+ * Simulate a posting of a question
+ * ----
+ * This function adds the question to the 'question' array using
+ * the 'Math.max' method to set the 'questionId' to the next number.
+ */
+export interface PostQuestionData {
+  title: string;
+  content: string;
+  userName: string;
+  created: Date;
+}
+export const postQuestion = async (
+  question: PostQuestionData,
+): Promise<QuestionData | undefined> => {
+  await wait(500);
+  const questionId = Math.max(...questions.map((q) => q.questionId)) + 1;
+  const newQuestion: QuestionData = {
+    ...question,
+    questionId,
+    answers: [],
+  };
+  questions.push(newQuestion);
+  return newQuestion;
+};
+
+/**
+ * Simulate a posting of an answer
+ */
+export interface PostAnswerData {
+  questionId: number;
+  content: string;
+  userName: string;
+  created: Date;
+}
+export const postAnswer = async (
+  answer: PostAnswerData,
+): Promise<AnswerData | undefined> => {
+  await wait(500);
+  const question = questions.filter(
+    (q) => q.questionId === answer.questionId,
+  )[0];
+  const answerInQuestion: AnswerData = {
+    answerId: 99,
+    ...answer,
+  };
+  question.answers.push(answerInQuestion);
+  return answerInQuestion;
 };

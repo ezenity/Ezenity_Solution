@@ -16,7 +16,7 @@ import {
   boxShadow,
 } from '../assets/css/Styles';
 import { UserIcon } from '../utils/Icons';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 /**
@@ -34,7 +34,8 @@ type FormData = {
 // export const Header = () => <div>Header<div/>
 
 export const Header = () => {
-  const { register } = useForm<FormData>();
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm<FormData>();
   const [searchParams] = useSearchParams();
   const criteria = searchParams.get('criteria') || '';
   // const [search, setSearch] = React.useState(criteria);
@@ -42,9 +43,12 @@ export const Header = () => {
   //   // console.log(e.currentTarget.value);
   //   setSearch(e.currentTarget.value);
   // };
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // console.log(search);
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   // console.log(search);
+  // };
+  const submitForm = ({ search }: FormData) => {
+    navigate(`search?criteria=${search}`);
   };
   return (
     <header className="App-header">
@@ -74,7 +78,7 @@ export const Header = () => {
         >
           Q & A
         </Link>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(submitForm)}>
           <input
             {...register('search')}
             // name="search"

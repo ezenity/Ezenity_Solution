@@ -9,8 +9,10 @@ import {
   FormButtonContainer,
   PrimaryButton,
   FieldError,
+  SubmissionSuccess,
 } from '../assets/css/Styles';
-import { useForm } from 'react-hook-form';
+import { useForm, useFormState } from 'react-hook-form';
+import { postQuestion } from '../utils/QuestionsData';
 
 /**
  * Represents the form data
@@ -23,14 +25,26 @@ type FormData = {
 export const AskPage = () => {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
+    handleSubmit,
   } = useForm<FormData>({
     mode: 'onBlur',
   });
+  const [successfullySubmitted, setSuccessfullySubmitted] =
+    React.useState(false);
+  const submitForm = async (data: FormData) => {
+    const result = await postQuestion({
+      title: data.title,
+      content: data.content,
+      userName: 'AntMac',
+      created: new Date(),
+    });
+    setSuccessfullySubmitted(result ? true : false);
+  };
   return (
     <Page title="Ask a question">
-      <form>
-        <Fieldset>
+      <form onSubmit={handleSubmit(submitForm)}>
+        <Fieldset disabled={isSubmitting || successfullySubmitted}>
           <FieldContainer>
             <FieldLabel htmlFor="title">Title</FieldLabel>
             <FieldInput
@@ -67,6 +81,11 @@ export const AskPage = () => {
           <FormButtonContainer>
             <PrimaryButton type="submit">Submit Your Question</PrimaryButton>
           </FormButtonContainer>
+          {successfullySubmitted && (
+            <SubmissionSuccess>
+              Your question was sucessfully submitted.
+            </SubmissionSuccess>
+          )}
         </Fieldset>
       </form>
     </Page>
