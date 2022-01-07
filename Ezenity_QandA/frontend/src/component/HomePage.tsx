@@ -8,10 +8,16 @@ import {
   PrimaryButton,
 } from '../assets/css/Styles';
 import { QuestionList } from './QuestionList';
-import { getUnansweredQuestions, QuestionData } from '../utils/QuestionsData';
+import { getUnansweredQuestions } from '../utils/QuestionsData';
 import { Page } from './Page';
 import { PageTitle } from './PageTitle';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  gettingUnansweredQuestionsAction,
+  gotUnansweredQuestionsAction,
+  AppState,
+} from '../utils/Store';
 
 // HomePage Component (Container Component)
 //  => Responsbile for how things work
@@ -22,16 +28,34 @@ import { useNavigate } from 'react-router-dom';
 //        renderItem = {(question) => <div>{question.title}</div>}
 //     />
 export const HomePage = () => {
-  const [questions, setQuestions] = React.useState<QuestionData[]>([]);
-  const [questionsLoading, setQuestionsLoading] = React.useState(true);
+  // Used to dispatch actions
+  const dispatch = useDispatch();
+  // Gets the unanswered questions state from the store
+  // ---- Takes the store's state object and contains logic to return the required part of the state from the store
+  const questions = useSelector(
+    (state: AppState) => state.questions.unanswered,
+  );
+  // Get the 'loading' state from the store
+  const questionsLoading = useSelector(
+    (state: AppState) => state.questions.loading,
+  );
+  // Local state
+  // const [questions, setQuestions] = React.useState<QuestionData[]>([]);
+  // const [questionsLoading, setQuestionsLoading] = React.useState(true);
   React.useEffect(() => {
     console.log('first rendered');
     const doGetUnansweredQuestions = async () => {
+      // Invoke the action for getting unanswered questions
+      dispatch(gettingUnansweredQuestionsAction());
       const unansweredQuestions = await getUnansweredQuestions();
-      setQuestions(unansweredQuestions);
-      setQuestionsLoading(false);
+      // Invoke the action forreceving unanswered questions
+      dispatch(gotUnansweredQuestionsAction(unansweredQuestions));
+      // Local state
+      // setQuestions(unansweredQuestions);
+      // setQuestionsLoading(false);
     };
     doGetUnansweredQuestions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const navigate = useNavigate();
   const handleAskQuestionClick = () => {

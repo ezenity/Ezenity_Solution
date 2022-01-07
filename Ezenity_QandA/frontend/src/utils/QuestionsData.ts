@@ -1,6 +1,4 @@
-﻿import { Answer } from '../component/Answer';
-
-/**
+﻿/**
  * Defines the structure of the questions we expect to be working with
  */
 export interface QuestionData {

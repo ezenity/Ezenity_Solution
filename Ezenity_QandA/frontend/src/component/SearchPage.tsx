@@ -3,8 +3,14 @@ import { css } from '@emotion/react';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { QuestionList } from './/QuestionList';
-import { searchQuestions, QuestionData } from '../utils/QuestionsData';
+import { searchQuestions } from '../utils/QuestionsData';
 import { Page } from './Page';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  AppState,
+  searchingQuestionsAction,
+  searchedQuestionsAction,
+} from '../utils/Store';
 
 /**
  * Searchs for a question based off of the title or content
@@ -27,15 +33,23 @@ import { Page } from './Page';
  * @returns
  */
 export const SearchPage = () => {
+  const dispatch = useDispatch();
+  // Get the searched questions state from the store
+  const questions = useSelector((state: AppState) => state.questions.searched);
   const [searchParams] = useSearchParams();
-  const [questions, setQuestions] = React.useState<QuestionData[]>([]);
+  // Local state
+  // const [questions, setQuestions] = React.useState<QuestionData[]>([]);
   const search = searchParams.get('criteria') || '';
   React.useEffect(() => {
     const doSearch = async (criteria: string) => {
+      dispatch(searchingQuestionsAction());
       const foundResults = await searchQuestions(criteria);
-      setQuestions(foundResults);
+      // Local state
+      // setQuestions(foundResults);
+      dispatch(searchedQuestionsAction(foundResults));
     };
     doSearch(search);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
   return (
     <Page title="Search Results">
