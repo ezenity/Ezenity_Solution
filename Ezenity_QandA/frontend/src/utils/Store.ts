@@ -1,6 +1,11 @@
 import { QuestionData } from './QuestionsData';
 
 /**
+ * ************************************************************
+ * Actions
+ * ************************************************************
+ */
+/**
  * The type for the state object in our store
  * ----
  * loading: Whether a server request is being made
@@ -50,7 +55,7 @@ export const GETTINGUNANSWEREDQUESTIONS = 'GettingUnansweredQuestions';
  *
  * @returns unanswered questions being fetched from the server
  */
-export const GettingUnansweredQuestionsAction = () =>
+export const gettingUnansweredQuestionsAction = () =>
   ({
     type: GETTINGUNANSWEREDQUESTIONS,
   } as const);
@@ -60,7 +65,7 @@ export const GettingUnansweredQuestionsAction = () =>
  * ----
  * This is indicating that the data being retrieved from a server
  */
-export const GOTANSWEREDQUESTIONS = 'getUnansweredQuestions';
+export const GOTANSWEREDQUESTIONS = 'gotUnansweredQuestions';
 
 /**
  * Function returning the action when data is being retrieved from a server
@@ -100,7 +105,7 @@ export const GOTQUESTION = 'gotQuestion';
  * @param question thatis being viewed
  * @returns the action for when the question being retrieved from the server
  */
-export const gotQuestion = (question: QuestionData | null) =>
+export const gotQuestionAction = (question: QuestionData | null) =>
   ({
     type: GOTQUESTION,
     question: question,
