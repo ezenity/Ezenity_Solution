@@ -89,8 +89,8 @@ export const QuestionPage = () => {
                   <FieldLabel htmlFor="content">Your Answer</FieldLabel>
                   <FieldTextArea
                     id="content"
-                    name="content"
-                    ref={register}
+                    // name="content"
+                    {...register('content')}
                   ></FieldTextArea>
                 </FieldContainer>
                 <FormButtonContainer>

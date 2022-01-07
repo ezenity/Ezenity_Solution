@@ -29,17 +29,17 @@ export const AskPage = () => {
             <FieldLabel htmlFor="title">Title</FieldLabel>
             <FieldInput
               id="title"
-              name="title"
+              // name="title"
               type="text"
-              ref={register}
+              {...register('title')}
             ></FieldInput>
           </FieldContainer>
           <FieldContainer>
             <FieldLabel htmlFor="content">Content</FieldLabel>
             <FieldTextArea
               id="content"
-              name="content"
-              ref={register}
+              // name="content"
+              {...register('content')}
             ></FieldTextArea>
           </FieldContainer>
           <FormButtonContainer>
