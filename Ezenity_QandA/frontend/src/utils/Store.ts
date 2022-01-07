@@ -1,4 +1,5 @@
 import { QuestionData } from './QuestionsData';
+import { Store, createStore, combineReducers } from 'redux';
 
 /**
  * ************************************************************
@@ -224,3 +225,31 @@ const questionsReducer = (
   }
   return state;
 };
+
+/**
+ * ************************************************************
+ * Redux Store
+ * ************************************************************
+ */
+
+/**
+ * Root Reducer
+ * ----
+ * An object literal is passed into 'combineReducers' which contains the properties in our app state,
+ * along with the reducer that is responsible for that state. We only create one property in our ap
+ * state called 'quetions' which is being managed by a single reducer called 'questionsReducer for
+ * when changes are made to that state.
+ */
+const rootReducer = combineReducers<AppState>({
+  questions: questionsReducer,
+});
+
+/**
+ * Function to create the store
+ *
+ * @returns a generic 'Store' type for  passing in the interface for our app state
+ */
+export function configureStore(): Store<AppState> {
+  const store = createStore(rootReducer, undefined);
+  return store;
+}
