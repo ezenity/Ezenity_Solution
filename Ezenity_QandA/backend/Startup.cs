@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DbUp;
+using Ezenity_QandA.Data;
 
 namespace Ezenity_QandA
 {
@@ -44,6 +45,14 @@ namespace Ezenity_QandA
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ezenity_QandA", Version = "v1" });
             });
+
+            // Make the data repository available for dependency injection. Whenever IDataRepository is 
+            // referenced in a constructor, substitute an isntance of the DataRepository class.
+            //
+            // AddScope: Only one instance of the class is created in a given HTTP request (Last for whole HTTP request)
+            // AddTransient: Generate a new instance of the class each time it is requested
+            // AddSingleton: Geernate only one clas instance for the lifetime of the whole app
+            services.AddScoped<IDataRepository, DataRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
