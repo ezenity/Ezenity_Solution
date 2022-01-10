@@ -5,7 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="backend\Properties\launchSettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="frontend\src\Header.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="backend\Properties\launchSettings.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +32,19 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="frontend\src\Header.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="backend\appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="backend\appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
