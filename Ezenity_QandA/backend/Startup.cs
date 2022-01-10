@@ -13,7 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DbUp;
 
-namespace Ezenity_QandA.backend
+namespace Ezenity_QandA
 {
     public class Startup
     {

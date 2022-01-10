@@ -1,4 +1,4 @@
-﻿namespace Ezenity_QandA.backend.Data.Models
+﻿namespace Ezenity_QandA.Data.Models
 {
   /**
    * This class helps Dapper to map to the SQL Parameters.

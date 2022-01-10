@@ -2,9 +2,9 @@
 using Dapper;
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
-using Ezenity_QandA.backend.Data.Models;
+using Ezenity_QandA.Data.Models;
 
-namespace Ezenity_QandA.backend.Data
+namespace Ezenity_QandA.Data
 {
   /**
    * This class will hold all of the methods for interaction with the database

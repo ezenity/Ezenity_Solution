@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ezenity_QandA.backend.Data.Models
+namespace Ezenity_QandA.Data.Models
 {
   /**
    * The property names in this class match the fields that have been

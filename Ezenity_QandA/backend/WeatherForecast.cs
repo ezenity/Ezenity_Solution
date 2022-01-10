@@ -1,6 +1,6 @@
 using System;
 
-namespace Ezenity_QandA.backend
+namespace Ezenity_QandA
 {
     public class WeatherForecast
     {

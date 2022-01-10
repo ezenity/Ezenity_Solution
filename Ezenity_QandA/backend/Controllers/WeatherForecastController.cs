@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Ezenity_QandA.backend.Controllers
+namespace Ezenity_QandA.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -1,7 +1,7 @@
-﻿using Ezenity_QandA.backend.Data.Models;
+﻿using Ezenity_QandA.Data.Models;
 using System.Collections.Generic;
 
-namespace Ezenity_QandA.backend.Data
+namespace Ezenity_QandA.Data
 {
   /**
    * This interface  is for the data Repository s othat is can be mocked when we write unit tests
