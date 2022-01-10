@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ezenity_React", "Ezenity_React\Ezenity_React.csproj", "{DCF39699-BA3A-48E4-87FE-D8BFE71FA6EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ezenity_QandA", "Ezenity_QandA\Ezenity_QandA.csproj", "{020A4A00-C8F9-4EBF-8EA5-D9E43D3248DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ezenity_QandA", "Ezenity_QandA\backend\Ezenity_QandA.csproj", "{020A4A00-C8F9-4EBF-8EA5-D9E43D3248DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Ezenity_QandA
+namespace Ezenity_QandA.backend
 {
     public class Program
     {
