@@ -25,6 +25,8 @@ namespace Ezenity_QandA.backend.Data
       _connectionString = configuration["ConnectionStrings:DefaultConnection"];
     }
 
+    /////////////////////////////////////////// Reading Data ///////////////////////////////////////////
+
     /**
      * This method will get a single answer based of fof the answer id.
      * 
@@ -183,6 +185,62 @@ namespace Ezenity_QandA.backend.Data
       {
         connection.Open();
         return connection.QueryFirst<bool>(@"EXEC dbo.Question_Exists @QuestionId = @QuestionId", new { QuestionId = questionId });
+      }
+    }
+
+    /////////////////////////////////////////// Writing Data //////////////////////////////////////////////
+    
+    /**
+     * Add a new question to the database. By using the 'QueryFirst' Dapper method, the sotred Procedure
+     * will return the ID of the new question after inserting it into the datbase table. The method returns
+     * the saved question by calling the 'GetQuestion' method with 'questionid', since it was returned
+     * from the 'Question_Post' stored procedure.
+     */
+    public QuestionGetSingleResponse PostQuestion(QuestionPostRequest question)
+    {
+      using(var connection = new SqlConnection(_connectionString))
+      {
+        connection.Open();
+        var questionId = connection.QueryFirst<int>(@"EXEC dbo.Question_Post @Title = @Title, @Content = @Content, @UserId = @UserId, @UserName = @UserName, @Created = @Created", question);
+        return GetQuestion(questionId);
+      }
+    }
+
+    /**
+     * Change an existing question in the database. We are using the 'Execute' Dapper method since we are
+     * simple executing a Store Procedure and not returning anything.
+     */
+    public QuestionGetSingleResponse PutQuestion(int questionId, QuestionPutRequest question)
+    {
+      using(var connection = new SqlConnection(_connectionString))
+      {
+        connection.Open();
+        connection.Execute(@"EXEC dbo.Question_Put @QuestionId = @QuestionId, @Title = @Title, @Content = @Content", new { QuestionId = questionId, question.Title, question.Content });
+        return GetQuestion(questionId);
+      }
+    }
+
+    /**
+     * Delete an existing question in the database based off of the question id. We are using the 'Execute'
+     * Dapper method since we are simple executing a Store Procedure and not returning anything.
+     */
+    public void DeleteQuestion(int questionId)
+    {
+      using(var connection = new SqlConnection(_connectionString)){
+        connection.Open();
+        connection.Execute(@"EXEC dbo.Question_Delete @QuestionId = @QuestionId", new { QuestionId = questionId});
+      }
+    }
+
+    /**
+     * Add an answer to a question in the database and returns the saved answer. 
+     */
+    public AnswerGetResponse PostAnswer(AnswerPostRequest answer)
+    {
+      using(var connection = new SqlConnection(_connectionString))
+      {
+        connection.Open();
+        return connection.QueryFirst<AnswerGetResponse>( @"EXEC dbo.Answer_Post @QuestionId = @QuestionId, @Content = @Content, @UserId = @UserId, @UserName = @UserName, @Created = @Created", answer);
       }
     }
   }
