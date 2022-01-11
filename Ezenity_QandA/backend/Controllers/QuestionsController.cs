@@ -126,7 +126,7 @@ namespace Ezenity_QandA.Controllers
     [HttpPost("answer")]
     public ActionResult<AnswerGetResponse> PostAnswer(AnswerPostRequest answerPostRequest)
     {
-      var questionExists = _dataRepository.QuestionExists(answerPostRequest.QuestionId);
+      var questionExists = _dataRepository.QuestionExists(answerPostRequest.QuestionId.Value);
       if (!questionExists)
       {
         return NotFound();

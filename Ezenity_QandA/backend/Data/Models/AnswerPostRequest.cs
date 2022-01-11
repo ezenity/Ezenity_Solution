@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ezenity_QandA.Data.Models
 {
@@ -7,7 +8,9 @@ namespace Ezenity_QandA.Data.Models
    */
   public class AnswerPostRequest
   {
-    public int QuestionId { get; set; }
+    [Required]
+    public int? QuestionId { get; set; }
+    [Required]
     public string Content { get; set; }
     public string UserId { get; set; }
     public string UserName { get; set; }
