@@ -235,7 +235,7 @@ namespace Ezenity_QandA.Data
     /**
      * Add an answer to a question in the database and returns the saved answer. 
      */
-    public AnswerGetResponse PostAnswer(AnswerPostRequest answer)
+    public AnswerGetResponse PostAnswer(AnswerPostFullRequest answer)
     {
       using(var connection = new SqlConnection(_connectionString))
       {

@@ -52,6 +52,6 @@ namespace Ezenity_QandA.Data
     /**
      * Add an answer to the database
      */
-    AnswerGetResponse PostAnswer(AnswerPostRequest answer);
+    AnswerGetResponse PostAnswer(AnswerPostFullRequest answer);
   }
 }

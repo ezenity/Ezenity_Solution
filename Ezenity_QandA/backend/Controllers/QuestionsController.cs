@@ -138,7 +138,13 @@ namespace Ezenity_QandA.Controllers
       {
         return NotFound();
       }
-      var savedAnswer = _dataRepository.PostAnswer(answerPostRequest);
+      var savedAnswer = _dataRepository.PostAnswer( new AnswerPostFullRequest {
+        QuestionnId = answerPostRequest.QuestionId.Value,
+        Content = answerPostRequest.Content,
+        UserId = "1", // TODO - Create identity provider
+        UserName = "ant.mac@test.com", // TODO - Create identity provider
+        Created = DateTime.UtcNow // TODO - Create identity provider
+      });
       return savedAnswer;
     }
   }
