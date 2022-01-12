@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
+using static Dapper.SqlMapper;
 
 namespace Ezenity_QandA.Data
 {
@@ -80,12 +81,27 @@ namespace Ezenity_QandA.Data
       using (var connection = new SqlConnection(_connectionString))
       {
         connection.Open();
-        var question = connection.QueryFirstOrDefault<QuestionGetSingleResponse>(@"EXEC dbo.Question_GetSingle @QuestionId = @QuestionId", new { QuestionId = questionId });
+        // Executes only two stored procedures in multiple database trips
+        /*var question = connection.QueryFirstOrDefault<QuestionGetSingleResponse>(@"EXEC dbo.Question_GetSingle @QuestionId = @QuestionId", new { QuestionId = questionId });
         if (question != null)
         {
           question.Answers = connection.Query<AnswerGetResponse>(@"EXEC dbo.Answer_Get_ByQuestionId @QuestionId = @QuestionId", new { QuestionId = questionId });
         }
-        return question;
+        return question;*/
+        
+        // Executing two stored procedures in a single database round trip
+        using(
+          GridReader results = connection.QueryMultiple(
+            @"EXEC dbo.Question_GetSingle @QuestionId = @QuestionId; EXEC dbo.Answer_Get_ByQuestionId @QuestionId = @QuestionId", new { QuestionId = questionId })
+          )
+          {
+            var question = results.Read<QuestionGetSingleResponse>().FirstOrDefault();
+            if(question != null)
+            {
+              question.Answers = results.Read<AnswerGetResponse>().ToList();
+            }
+            return question;
+          }
       }
     }
 
