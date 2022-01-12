@@ -1,5 +1,6 @@
 ﻿using Ezenity_QandA.Data.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Ezenity_QandA.Data
 {
@@ -29,6 +30,11 @@ namespace Ezenity_QandA.Data
      * Get all questions that have no answers
      */
     IEnumerable<QuestionGetManyResponse> GetUnansweredQuestions();
+    /**
+     * Get all questions that have no answers asynchronously. This will return a Task
+     * of the type that will eventually be returned.
+     */
+    Task<IEnumerable<QuestionGetManyResponse>> GetUnansweredQuestionsAsync();
     /**
      * Get a single question based on the question Id. if no question is found
      * with the specific question id, null will return instead

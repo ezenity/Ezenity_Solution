@@ -4,6 +4,7 @@ using Ezenity_QandA.Data;
 using Ezenity_QandA.Data.Models;
 using System.Collections.Generic;
 using System;
+using System.Threading.Tasks;
 
 namespace Ezenity_QandA.Controllers
 {
@@ -54,9 +55,9 @@ namespace Ezenity_QandA.Controllers
      * Gets all questions that are unanswered and returns the response.
      */
     [HttpGet("unanswered")]
-    public IEnumerable<QuestionGetManyResponse> getUnansweredQuestions()
+    public async Task<IEnumerable<QuestionGetManyResponse>> GetUnansweredQuestions()
     {
-      return _dataRepository.GetUnansweredQuestions();
+      return await _dataRepository.GetUnansweredQuestionsAsync();
     }
 
     /**

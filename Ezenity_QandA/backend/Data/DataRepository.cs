@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using static Dapper.SqlMapper;
 
 namespace Ezenity_QandA.Data
@@ -259,6 +260,32 @@ namespace Ezenity_QandA.Data
       {
         connection.Open();
         return connection.Query<QuestionGetManyResponse>("EXEC dbo.Question_Getunanswered");
+      }
+    }
+
+    /**
+     * This method will get all the questions that are unanswered listed in the database asynchronously.
+     * once the I/O calls in the calling stack, the tread will return back to the thread pool for it
+     * may be used again. If any of the I/o call is synchronous, then thread thread will be blocked
+     * from returning to the thread pool.
+     * 
+     * NOTE:
+     * We are implementing a using statement to make a connection to the database
+     * to ensure once we are done the connection is disposed properly. We are also
+     * using a 'SqlConnection' from the Microsoft SQL client Library because this
+     * is what the Dapper library extends.
+     * 
+     * With Dapper we can use a 'Query' extension method on the 'connection' object
+     * to execute the 'Question_Getunaswered' Stored Procedure. This is simply done by us
+     * passing the 'QuestiongetManyResponse' in to the generic parameter of the 
+     * 'Query' method. This defines the model class the query results should be stored in.
+     */
+    public async Task<IEnumerable<QuestionGetManyResponse>> GetUnansweredQuestionsAsync()
+    {
+      using (var connection = new SqlConnection(_connectionString))
+      {
+        await connection.OpenAsync();
+        return await connection.QueryAsync<QuestionGetManyResponse>("EXEC dbo.question_GetUnanswered");
       }
     }
 
