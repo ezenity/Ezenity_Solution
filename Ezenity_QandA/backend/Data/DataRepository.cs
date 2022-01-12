@@ -102,7 +102,7 @@ namespace Ezenity_QandA.Data
      * passing the 'QuestiongetManyResponse' in to the generic parameter of the 
      * 'Query' method. This defines the model class the query results should be stored
      */
-    public IEnumerable<QuestionGetManyResponse> getQuestions()
+    public IEnumerable<QuestionGetManyResponse> GetQuestions()
     {
       using (var connection = new SqlConnection(_connectionString))
       {
@@ -196,7 +196,7 @@ namespace Ezenity_QandA.Data
      * the saved question by calling the 'GetQuestion' method with 'questionid', since it was returned
      * from the 'Question_Post' stored procedure.
      */
-    public QuestionGetSingleResponse PostQuestion(QuestionPostRequest question)
+    public QuestionGetSingleResponse PostQuestion(QuestionPostFullRequest question)
     {
       using(var connection = new SqlConnection(_connectionString))
       {

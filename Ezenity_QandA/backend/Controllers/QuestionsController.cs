@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Ezenity_QandA.Data;
 using Ezenity_QandA.Data.Models;
 using System.Collections.Generic;
+using System;
 
 namespace Ezenity_QandA.Controllers
 {
@@ -33,7 +34,7 @@ namespace Ezenity_QandA.Controllers
     {
       if (string.IsNullOrEmpty(search))
       {
-        return _dataRepository.getQuestions();
+        return _dataRepository.GetQuestions();
       } 
       else
       {
@@ -74,7 +75,13 @@ namespace Ezenity_QandA.Controllers
     [HttpPost]
     public ActionResult<QuestionGetSingleResponse> PostQuestion(QuestionPostRequest questionPostRequest)
     {
-      var savedQuestion = _dataRepository.PostQuestion(questionPostRequest);
+      var savedQuestion = _dataRepository.PostQuestion( new QuestionPostFullRequest {
+        Title = questionPostRequest.Title,
+        Content = questionPostRequest.Content,
+        UserId = "1", // TODO - Create identity provider
+        UserName = "ant.mac@test.com", // TODO - Create identity provider
+        Created = DateTime.UtcNow // TODO - Create identity provider
+      });
       return CreatedAtAction(nameof(GetQuestion), new { questionId = savedQuestion.QuestionId }, savedQuestion);
     }
 

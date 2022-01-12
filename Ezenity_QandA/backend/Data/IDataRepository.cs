@@ -12,7 +12,7 @@ namespace Ezenity_QandA.Data
     /**
      * Get all questions avaliable from the database
      */
-    IEnumerable<QuestionGetManyResponse> getQuestions();
+    IEnumerable<QuestionGetManyResponse> GetQuestions();
     /**
      * Get questions based off of the search query parameter
      */
@@ -40,7 +40,7 @@ namespace Ezenity_QandA.Data
     /**
      * Add a question to the database
      */
-    QuestionGetSingleResponse PostQuestion(QuestionPostRequest question);
+    QuestionGetSingleResponse PostQuestion(QuestionPostFullRequest question);
     /**
      * Change an existing question and overwrite an existing question in the database
      */
