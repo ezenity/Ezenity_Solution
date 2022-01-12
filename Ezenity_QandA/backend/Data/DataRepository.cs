@@ -1,8 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
-using Dapper;
-using System.Collections.Generic;
-using Microsoft.Data.SqlClient;
+﻿using Dapper;
 using Ezenity_QandA.Data.Models;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Ezenity_QandA.Data
 {
@@ -108,6 +109,35 @@ namespace Ezenity_QandA.Data
       {
         connection.Open();
         return connection.Query<QuestionGetManyResponse>(@"EXEC dbo.Question_GetMany");
+      }
+    }
+
+    /**
+     * Will get all the questions listed in the database and all its answers if any
+     * 
+     * NOTE:
+     * We are implementing a using statement to make a connection to the database
+     * to ensure once we are done the connection is disposed properly. We are also
+     * using a 'SqlConnection' from the Microsoft SQL client Library because this
+     * is what the Dapper library extends.
+     * 
+     * With Dapper we can use a 'Query' extension method on the 'connection' object
+     * to execute the 'Question_GetMany' and 'Answer_Get_ByQuestionId' Stored Procedure.
+     * This is simply done by us passing the 'QuestiongetManyResponse' and 'AnswerGetResponse'
+     * in to the generic parameter of the 'Query' method. This defines the model class the
+     * query results should be stored.
+     */
+    public IEnumerable<QuestionGetManyResponse> GetQuestionsWithAnswers()
+    {
+      using(var connection = new SqlConnection(_connectionString))
+      {
+        connection.Open();
+        var questions = connection.Query<QuestionGetManyResponse>(@"EXEC dbo.Question_GetMany");
+        foreach (var question in questions)
+        {
+          question.Answers = connection.Query<AnswerGetResponse>(@"EXEC dbo.Answer_Get_ByQuestionId @QuestionId = @QuestionId", new { QuestionId = question.QuestionId }).ToList();
+        }
+        return questions;
       }
     }
 

@@ -14,6 +14,10 @@ namespace Ezenity_QandA.Data
      */
     IEnumerable<QuestionGetManyResponse> GetQuestions();
     /**
+     * Get all questions avaliable from the database with their answers
+     */
+    IEnumerable<QuestionGetManyResponse> GetQuestionsWithAnswers();
+    /**
      * Get questions based off of the search query parameter
      */
     IEnumerable<QuestionGetManyResponse> GetQuestionsBySearch(string search);
