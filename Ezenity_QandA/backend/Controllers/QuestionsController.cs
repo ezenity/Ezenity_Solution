@@ -27,11 +27,11 @@ namespace Ezenity_QandA.Controllers
     /**
      * Get an array of all the questions in the database if not parameter
      * is passed in. If a parameter is passed, search for all question with
-     * what was passed in. This porcess is called model binding. If the
+     * what was passed in. This process is called model binding. If the
      * question has an answer return too.
      */
     [HttpGet]
-    public IEnumerable<QuestionGetManyResponse> GetQuestions(string search, bool includeAnswers)
+    public IEnumerable<QuestionGetManyResponse> GetQuestions(string search, bool includeAnswers, int page = 1, int pageSize = 20)
     {
       if (string.IsNullOrEmpty(search))
       {
@@ -46,7 +46,7 @@ namespace Ezenity_QandA.Controllers
       } 
       else
       {
-        return _dataRepository.GetQuestionsBySearch(search);
+        return _dataRepository.GetQuestionsBySearchWithPaging(search, page, pageSize);
       }
     }
 

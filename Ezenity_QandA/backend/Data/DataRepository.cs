@@ -206,6 +206,40 @@ namespace Ezenity_QandA.Data
     }
 
     /**
+     * Get all the questions that are pertaining to the search, pageNumber and pageSize query parameters
+     * 
+     * NOTE:
+     * We are implementing a using statement to make a connection to the database
+     * to ensure once we are done the connection is disposed properly. We are also
+     * using a 'SqlConnection' from the Microsoft SQL client Library because this
+     * is what the Dapper library extends.
+     * 
+     * With Dapper we can use a 'Query' extension method on the 'connection' object
+     * to execute the 'Question_GetMany_BySearch_WithPaging' Stored Procedure and execute a
+     * parameterized query. We've used an anonymous object for the parameters to save
+     * defining a class for the object. This is simply  done by us passing the
+     * 'QuestiongetManyResponse' in to the generic parameter of the 'Query' method.
+     * This defines the model class the query results should be stored in.
+     * 
+     * Another thing to keep in mind that by passing parameters into Dapper rather than
+     * trying to construct the SQL prevents an attacker from attemtping an SQL Injection.
+     */
+    public IEnumerable<QuestionGetManyResponse> GetQuestionsBySearchWithPaging(string search, int pageNumber, int pageSize)
+    {
+      using (var connection = new SqlConnection(_connectionString))
+      {
+        connection.Open();
+        var parameters = new
+        {
+          Search = search,
+          PageNumber = pageNumber,
+          PageSize = pageSize
+        };
+        return connection.Query<QuestionGetManyResponse>(@"EXEC dbo.Question_GetMany_BySearch_WithPaging @Search = @Search, @PageNumber = @PageNumber, @PageSize = @PageSize", parameters);
+      }
+    }
+
+    /**
      * This method will get all the questions that are unanswered listed in the database
      * 
      * NOTE:

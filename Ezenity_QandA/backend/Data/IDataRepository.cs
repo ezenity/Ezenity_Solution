@@ -22,6 +22,10 @@ namespace Ezenity_QandA.Data
      */
     IEnumerable<QuestionGetManyResponse> GetQuestionsBySearch(string search);
     /**
+     * Get questions based off of the search, pageNumber and pageSize query parameters
+     */
+    IEnumerable<QuestionGetManyResponse> GetQuestionsBySearchWithPaging(string search, int pageNumber, int pageSize);
+    /**
      * Get all questions that have no answers
      */
     IEnumerable<QuestionGetManyResponse> GetUnansweredQuestions();
