@@ -53,6 +53,14 @@ namespace Ezenity_QandA
             // AddTransient: Generate a new instance of the class each time it is requested
             // AddSingleton: Geernate only one clas instance for the lifetime of the whole app
             services.AddScoped<IDataRepository, DataRepository>();
+
+            // Make cache available for dependency injection.
+            //
+            // For this dependecy injection, it is getting added as a singlton. This makes a single instance of the
+            // class for the lifetime of the application. Seperate HTTP request will access the same class instance
+            // which will access the same cached data.
+            services.AddMemoryCache();
+            services.AddSingleton<IQuestionCache, QuestionCache>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

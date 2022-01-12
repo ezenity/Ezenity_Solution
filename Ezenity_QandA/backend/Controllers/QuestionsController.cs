@@ -16,13 +16,18 @@ namespace Ezenity_QandA.Controllers
      * class-level variable to hold a reference to the repository
      */
     private readonly IDataRepository _dataRepository;
+    /**
+     * Class-level variable to hold a reference to the cache
+     */
+    private readonly IQuestionCache _cache;
 
     /**
-     * Initilize the data repository
+     * Initilize the data repository and question cache
      */
-    public QuestionsController(IDataRepository dataRepository)
+    public QuestionsController(IDataRepository dataRepository, IQuestionCache questionCache)
     {
       _dataRepository = dataRepository;
+      _cache = questionCache;
     }
 
     /**
@@ -67,10 +72,24 @@ namespace Ezenity_QandA.Controllers
     [HttpGet("{questionId}")]
     public ActionResult<QuestionGetSingleResponse> GetQuestion(int questionId)
     {
-      var question = _dataRepository.GetQuestion(questionId);
+      // Non-Cached GetQuestion(int)
+      /*var question = _dataRepository.GetQuestion(questionId);
       if (question == null)
       {
         return NotFound();
+      }
+      return question;*/
+
+      // Cached GetQuestion(int)
+      var question = _cache.Get(questionId);
+      if(question == null)
+      {
+        question = _dataRepository.GetQuestion(questionId);
+        if(question == null)
+        {
+          return NotFound();
+        }
+        _cache.Set(question);
       }
       return question;
     }
@@ -116,6 +135,7 @@ namespace Ezenity_QandA.Controllers
       questionPutRequest.Title = string.IsNullOrEmpty(questionPutRequest.Title) ? question.Title : questionPutRequest.Title;
       questionPutRequest.Content = string.IsNullOrEmpty(questionPutRequest.Content) ? question.Content : questionPutRequest.Content;
       var savedQuestion = _dataRepository.PutQuestion(questionId, questionPutRequest);
+      _cache.Remove(savedQuestion.QuestionId);
       return savedQuestion;
     }
 
@@ -131,6 +151,7 @@ namespace Ezenity_QandA.Controllers
         return NotFound();
       }
       _dataRepository.DeleteQuestion(questionId);
+      _cache.Remove(questionId);
       return NoContent();
     }
 
@@ -154,6 +175,7 @@ namespace Ezenity_QandA.Controllers
         UserName = "ant.mac@test.com", // TODO - Create identity provider
         Created = DateTime.UtcNow // TODO - Create identity provider
       });
+      _cache.Remove(answerPostRequest.QuestionId.Value);
       return savedAnswer;
     }
   }
