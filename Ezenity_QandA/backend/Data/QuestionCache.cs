@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Ezenity_QandA.Data.Models;
+using System;
 
 namespace Ezenity_QandA.Data
 {
@@ -46,7 +47,7 @@ namespace Ezenity_QandA.Data
      */
     public void Set(QuestionGetSingleResponse question)
     {
-      var cacheEntryOptions = new MemoryCacheEntryOptions().SetSize(1);
+      var cacheEntryOptions = new MemoryCacheEntryOptions().SetSize(1).SetSlidingExpiration(TimeSpan.FromMinutes(30));
       _cache.Set(GetCacheKey(question.QuestionId), question, cacheEntryOptions);
     }
 
