@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DbUp;
 using Ezenity_QandA.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Ezenity_QandA
 {
@@ -61,6 +62,20 @@ namespace Ezenity_QandA
             // which will access the same cached data.
             services.AddMemoryCache();
             services.AddSingleton<IQuestionCache, QuestionCache>();
+
+            // Configures ASP.NET backend to authenticate with Auth0
+            //
+            // this is specifically adding JWT-based authentication which is
+            // specifying the authority and expected audience as the appsettings.json
+            services.AddAuthentication(options =>
+            {
+              options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+              options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+              options.Authority = Configuration["Auth0:Authority"];
+              options.Audience = Configuration["Auth0:Audience"];
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,8 +94,11 @@ namespace Ezenity_QandA
 
             app.UseRouting();
 
+            // adds authentication middleware
+            // Validates the access token in each request if one exists. if the check succeeds, the
+            // user on the request context will be set
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
