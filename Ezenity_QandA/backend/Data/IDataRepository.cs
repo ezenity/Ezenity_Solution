@@ -39,7 +39,7 @@ namespace Ezenity_QandA.Data
      * Get a single question based on the question Id. if no question is found
      * with the specific question id, null will return instead
      */
-    QuestionGetSingleResponse GetQuestion(int questionId);
+    Task<QuestionGetSingleResponse> GetQuestion(int questionId);
     /**
      * Will check if the specific question id is found in the database, if not 
      * will return a null value

@@ -5,6 +5,7 @@ using Ezenity_QandA.Data.Models;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ezenity_QandA.Controllers
 {
@@ -70,7 +71,7 @@ namespace Ezenity_QandA.Controllers
      * a HTTP status code 404 will return since the qustion id is null.
      */
     [HttpGet("{questionId}")]
-    public ActionResult<QuestionGetSingleResponse> GetQuestion(int questionId)
+    public async Task<ActionResult<QuestionGetSingleResponse>> GetQuestion(int questionId)
     {
       // Non-Cached GetQuestion(int)
       /*var question = _dataRepository.GetQuestion(questionId);
@@ -84,7 +85,7 @@ namespace Ezenity_QandA.Controllers
       var question = _cache.Get(questionId);
       if(question == null)
       {
-        question = _dataRepository.GetQuestion(questionId);
+        question = await _dataRepository.GetQuestion(questionId);
         if(question == null)
         {
           return NotFound();
@@ -100,6 +101,7 @@ namespace Ezenity_QandA.Controllers
      * a 201 status code wth the question in the response. we will also include a 'Location'
      * HTTP header that contains the path to get the question.
      */
+    [Authorize]
     [HttpPost]
     public ActionResult<QuestionGetSingleResponse> PostQuestion(QuestionPostRequest questionPostRequest)
     {
@@ -124,6 +126,7 @@ namespace Ezenity_QandA.Controllers
      * this will require additonal resources. such as: NewtonsoftJson NuGet Package. More Info here:
      * https://docs.microsoft.com/en-us/aspnet/core/web-api/jsonpatch?view=aspnetcore-6.0
      */
+    [Authorize(Policy = "MustBeQuestionAuthor")]
     [HttpPut("{questionId}")]
     public ActionResult<QuestionGetSingleResponse> PutQuestion(int questionId, QuestionPutRequest questionPutRequest)
     {
@@ -142,6 +145,7 @@ namespace Ezenity_QandA.Controllers
     /**
      * Delete a question from the database. The question must match the question id or will return a null value
      */
+    [Authorize(Policy = "MustBeQuestionAuthor")]
     [HttpDelete("{questionId}")]
     public ActionResult DeleteQuestion(int questionId)
     {
@@ -160,6 +164,7 @@ namespace Ezenity_QandA.Controllers
      * the question does exist the answer will get passed to the data repository to insert into the database. The
      * saved answer is returned from the data repository, which is returned in the response.
      */
+    [Authorize]
     [HttpPost("answer")]
     public ActionResult<AnswerGetResponse> PostAnswer(AnswerPostRequest answerPostRequest)
     {
@@ -169,7 +174,7 @@ namespace Ezenity_QandA.Controllers
         return NotFound();
       }
       var savedAnswer = _dataRepository.PostAnswer( new AnswerPostFullRequest {
-        QuestionnId = answerPostRequest.QuestionId.Value,
+        QuestionId = answerPostRequest.QuestionId.Value,
         Content = answerPostRequest.Content,
         UserId = "1", // TODO - Create identity provider
         UserName = "ant.mac@test.com", // TODO - Create identity provider

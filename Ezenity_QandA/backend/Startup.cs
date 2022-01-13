@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 using DbUp;
 using Ezenity_QandA.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using Ezenity_QandA.Authorization;
 
 namespace Ezenity_QandA
 {
@@ -76,6 +79,24 @@ namespace Ezenity_QandA
               options.Authority = Configuration["Auth0:Authority"];
               options.Audience = Configuration["Auth0:Audience"];
             });
+
+            // Call an Auth0 service which makes the HTTP client available
+            services.AddHttpClient();
+            
+            // This defines a authorization policy and its requirements that is held within a class called 'MustbeQuestionAuthorRequirement'
+            services.AddAuthorization(options => options.AddPolicy("MustBeQuestionauthor", policy => policy.Requirements.Add(new MustBeQuestionAuthorRequirement())));
+
+            // Authorization policy handler for the requirement. registering for dependency injection
+            services.AddScoped<IAuthorizationHandler, MustBeQuestionAuthorHandler> ();
+
+            // Allow our handler class to access the HTTP request which will find out the question that is being requested. Registering
+            // this for dependency injection to get access to the HTTP request information in a class
+            //
+            // NOTE => This is a convience method for:
+            //             AddSinglton<IHttpContextAccessor, HttpContextAccessor>
+            services.AddHttpContextAccessor();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

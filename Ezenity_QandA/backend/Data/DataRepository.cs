@@ -77,11 +77,11 @@ namespace Ezenity_QandA.Data
      * Another thing to keep in mind that by passing parameters into Dapper rather than
      * trying to construct the SQL prevents an attacker from attemtping an SQL Injection.
      */
-    public QuestionGetSingleResponse GetQuestion(int questionId)
+    public async Task<QuestionGetSingleResponse> GetQuestion(int questionId)
     {
       using (var connection = new SqlConnection(_connectionString))
       {
-        connection.Open();
+        await connection.OpenAsync();
         // Executes only two stored procedures in multiple database trips
         /*var question = connection.QueryFirstOrDefault<QuestionGetSingleResponse>(@"EXEC dbo.Question_GetSingle @QuestionId = @QuestionId", new { QuestionId = questionId });
         if (question != null)
@@ -91,18 +91,18 @@ namespace Ezenity_QandA.Data
         return question;*/
         
         // Executing two stored procedures in a single database round trip
-        using(
-          GridReader results = connection.QueryMultiple(
-            @"EXEC dbo.Question_GetSingle @QuestionId = @QuestionId; EXEC dbo.Answer_Get_ByQuestionId @QuestionId = @QuestionId", new { QuestionId = questionId })
-          )
+        using(GridReader results = await connection.QueryMultipleAsync(
+            @"EXEC dbo.Question_GetSingle @QuestionId = @QuestionId;
+              EXEC dbo.Answer_Get_ByQuestionId @QuestionId = @QuestionId",
+            new { QuestionId = questionId }))
+        {
+          var question = (await results.ReadAsync<QuestionGetSingleResponse>()).FirstOrDefault();
+          if(question != null)
           {
-            var question = results.Read<QuestionGetSingleResponse>().FirstOrDefault();
-            if(question != null)
-            {
-              question.Answers = results.Read<AnswerGetResponse>().ToList();
-            }
-            return question;
+            question.Answers = (await results.ReadAsync<AnswerGetResponse>()).ToList();
           }
+          return question;
+        }
       }
     }
 
