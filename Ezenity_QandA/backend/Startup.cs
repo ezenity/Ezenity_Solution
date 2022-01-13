@@ -96,6 +96,15 @@ namespace Ezenity_QandA
             //             AddSinglton<IHttpContextAccessor, HttpContextAccessor>
             services.AddHttpContextAccessor();
 
+            // Defining the CORS (Cross-Origin resource Sharing) policy that allows origins specifiged in appsettings.json to access
+            // the REST API. Allows requests with any HTTP method and any hTTP header
+            services.AddCors(options =>
+              options.AddPolicy("CorsPolicy", builder =>
+                builder
+                  .AllowAnyMethod()
+                  .AllowAnyHeader()
+                  .WithOrigins(Configuration["Frontend"])));
+
 
         }
 
@@ -114,7 +123,8 @@ namespace Ezenity_QandA
             }
 
             app.UseRouting();
-
+            // Enable Cors Policy
+            app.UseCors("CorsPolicy");
             // adds authentication middleware
             // Validates the access token in each request if one exists. if the check succeeds, the
             // user on the request context will be set
