@@ -48,12 +48,12 @@ namespace Ezenity_QandA.Data
      * Another thing to keep in mind that by passing parameters into Dapper rather than
      * trying to construct the SQL prevents an attacker from attemtping an SQL Injection.
      */
-    public AnswerGetResponse GetAnswer(int answerId)
+    public async Task<AnswerGetResponse> GetAnswer(int answerId)
     {
       using (var connection = new SqlConnection(_connectionString))
       {
-        connection.Open();
-        return connection.QueryFirstOrDefault<AnswerGetResponse>(@"EXEC dbo.Answer_Get_ByAnswerId @Answerid = @AnswerId", new { AnswerId = answerId });
+        await connection.OpenAsync();
+        return await connection.QueryFirstOrDefaultAsync<AnswerGetResponse>(@"EXEC dbo.Answer_Get_ByAnswerId @Answerid = @AnswerId", new { AnswerId = answerId });
       }
     }
 
@@ -120,12 +120,12 @@ namespace Ezenity_QandA.Data
      * passing the 'QuestiongetManyResponse' in to the generic parameter of the 
      * 'Query' method. This defines the model class the query results should be stored
      */
-    public IEnumerable<QuestionGetManyResponse> GetQuestions()
+    public async Task<IEnumerable<QuestionGetManyResponse>> GetQuestions()
     {
       using (var connection = new SqlConnection(_connectionString))
       {
-        connection.Open();
-        return connection.Query<QuestionGetManyResponse>(@"EXEC dbo.Question_GetMany");
+        await connection.OpenAsync();
+        return await connection.QueryAsync<QuestionGetManyResponse>(@"EXEC dbo.Question_GetMany");
       }
     }
 
@@ -144,11 +144,11 @@ namespace Ezenity_QandA.Data
      * in to the generic parameter of the 'Query' method. This defines the model class the
      * query results should be stored.
      */
-    public IEnumerable<QuestionGetManyResponse> GetQuestionsWithAnswers()
+    public async Task<IEnumerable<QuestionGetManyResponse>> GetQuestionsWithAnswers()
     {
       using(var connection = new SqlConnection(_connectionString))
       {
-        connection.Open();
+        await connection.OpenAsync();
         // Causes n+1 problem
         /*var questions = connection.Query<QuestionGetManyResponse>(@"EXEC dbo.Question_GetMany");
         foreach (var question in questions)
@@ -159,7 +159,7 @@ namespace Ezenity_QandA.Data
         
         // Dapper's multi-mapping feature
         var questionDictionary = new Dictionary<int, QuestionGetManyResponse>();
-        return connection.Query<QuestionGetManyResponse, AnswerGetResponse, QuestionGetManyResponse>
+        return (await connection.QueryAsync<QuestionGetManyResponse, AnswerGetResponse, QuestionGetManyResponse>
           (@"EXEC dbo.Question_GetMany_WithAnswers", map: (q, a) =>
           {
             QuestionGetManyResponse question;
@@ -173,7 +173,7 @@ namespace Ezenity_QandA.Data
             return question;
           },
           splitOn: "QuestionId"
-          ).Distinct().ToList();
+          )).Distinct().ToList();
       }
     }
 
@@ -197,12 +197,12 @@ namespace Ezenity_QandA.Data
      * Another thing to keep in mind that by passing parameters into Dapper rather than
      * trying to construct the SQL prevents an attacker from attemtping an SQL Injection.
      */
-    public IEnumerable<QuestionGetManyResponse> GetQuestionsBySearch(string search)
+    public async Task<IEnumerable<QuestionGetManyResponse>> GetQuestionsBySearch(string search)
     {
       using (var connection = new SqlConnection(_connectionString))
       {
-        connection.Open();
-        return connection.Query<QuestionGetManyResponse>(@"EXEC dbo.Question_GetMany_BySearch @Search = @Search", new { Search = search });
+        await connection.OpenAsync();
+        return await connection.QueryAsync<QuestionGetManyResponse>(@"EXEC dbo.Question_GetMany_BySearch @Search = @Search", new { Search = search });
       }
     }
 
@@ -225,18 +225,18 @@ namespace Ezenity_QandA.Data
      * Another thing to keep in mind that by passing parameters into Dapper rather than
      * trying to construct the SQL prevents an attacker from attemtping an SQL Injection.
      */
-    public IEnumerable<QuestionGetManyResponse> GetQuestionsBySearchWithPaging(string search, int pageNumber, int pageSize)
+    public async Task<IEnumerable<QuestionGetManyResponse>> GetQuestionsBySearchWithPaging(string search, int pageNumber, int pageSize)
     {
       using (var connection = new SqlConnection(_connectionString))
       {
-        connection.Open();
+        await connection.OpenAsync();
         var parameters = new
         {
           Search = search,
           PageNumber = pageNumber,
           PageSize = pageSize
         };
-        return connection.Query<QuestionGetManyResponse>(@"EXEC dbo.Question_GetMany_BySearch_WithPaging @Search = @Search, @PageNumber = @PageNumber, @PageSize = @PageSize", parameters);
+        return await connection.QueryAsync<QuestionGetManyResponse>(@"EXEC dbo.Question_GetMany_BySearch_WithPaging @Search = @Search, @PageNumber = @PageNumber, @PageSize = @PageSize", parameters);
       }
     }
 
@@ -254,12 +254,12 @@ namespace Ezenity_QandA.Data
      * passing the 'QuestiongetManyResponse' in to the generic parameter of the 
      * 'Query' method. This defines the model class the query results should be stored in.
      */
-    public IEnumerable<QuestionGetManyResponse> GetUnansweredQuestions()
+    public async Task<IEnumerable<QuestionGetManyResponse>> GetUnansweredQuestions()
     {
       using (var connection = new SqlConnection(_connectionString))
       {
-        connection.Open();
-        return connection.Query<QuestionGetManyResponse>("EXEC dbo.Question_Getunanswered");
+        await connection.OpenAsync();
+        return await connection.QueryAsync<QuestionGetManyResponse>("EXEC dbo.Question_Getunanswered");
       }
     }
 
@@ -305,12 +305,12 @@ namespace Ezenity_QandA.Data
      * in to the generic parameter of the 'Query' method. This defines the model class the query
      * results should be stored in.
      */
-    public bool QuestionExists(int questionId)
+    public async Task<bool> QuestionExists(int questionId)
     {
       using (var connection = new SqlConnection(_connectionString))
       {
-        connection.Open();
-        return connection.QueryFirst<bool>(@"EXEC dbo.Question_Exists @QuestionId = @QuestionId", new { QuestionId = questionId });
+        await connection.OpenAsync();
+        return await connection.QueryFirstAsync<bool>(@"EXEC dbo.Question_Exists @QuestionId = @QuestionId", new { QuestionId = questionId });
       }
     }
 
@@ -322,13 +322,13 @@ namespace Ezenity_QandA.Data
      * the saved question by calling the 'GetQuestion' method with 'questionid', since it was returned
      * from the 'Question_Post' stored procedure.
      */
-    public QuestionGetSingleResponse PostQuestion(QuestionPostFullRequest question)
+    public async Task<QuestionGetSingleResponse> PostQuestion(QuestionPostFullRequest question)
     {
       using(var connection = new SqlConnection(_connectionString))
       {
-        connection.Open();
-        var questionId = connection.QueryFirst<int>(@"EXEC dbo.Question_Post @Title = @Title, @Content = @Content, @UserId = @UserId, @UserName = @UserName, @Created = @Created", question);
-        return GetQuestion(questionId);
+        await connection.OpenAsync();
+        var questionId = await connection.QueryFirstAsync<int>(@"EXEC dbo.Question_Post @Title = @Title, @Content = @Content, @UserId = @UserId, @UserName = @UserName, @Created = @Created", question);
+        return await GetQuestion(questionId);
       }
     }
 
@@ -336,13 +336,13 @@ namespace Ezenity_QandA.Data
      * Change an existing question in the database. We are using the 'Execute' Dapper method since we are
      * simple executing a Store Procedure and not returning anything.
      */
-    public QuestionGetSingleResponse PutQuestion(int questionId, QuestionPutRequest question)
+    public async Task<QuestionGetSingleResponse> PutQuestion(int questionId, QuestionPutRequest question)
     {
       using(var connection = new SqlConnection(_connectionString))
       {
-        connection.Open();
+        await connection.OpenAsync();
         connection.Execute(@"EXEC dbo.Question_Put @QuestionId = @QuestionId, @Title = @Title, @Content = @Content", new { QuestionId = questionId, question.Title, question.Content });
-        return GetQuestion(questionId);
+        return await GetQuestion(questionId);
       }
     }
 
@@ -350,23 +350,23 @@ namespace Ezenity_QandA.Data
      * Delete an existing question in the database based off of the question id. We are using the 'Execute'
      * Dapper method since we are simple executing a Store Procedure and not returning anything.
      */
-    public void DeleteQuestion(int questionId)
+    public async Task DeleteQuestion(int questionId)
     {
       using(var connection = new SqlConnection(_connectionString)){
-        connection.Open();
-        connection.Execute(@"EXEC dbo.Question_Delete @QuestionId = @QuestionId", new { QuestionId = questionId});
+        await connection.OpenAsync();
+        await connection.ExecuteAsync(@"EXEC dbo.Question_Delete @QuestionId = @QuestionId", new { QuestionId = questionId});
       }
     }
 
     /**
      * Add an answer to a question in the database and returns the saved answer. 
      */
-    public AnswerGetResponse PostAnswer(AnswerPostFullRequest answer)
+    public async Task<AnswerGetResponse> PostAnswer(AnswerPostFullRequest answer)
     {
       using(var connection = new SqlConnection(_connectionString))
       {
-        connection.Open();
-        return connection.QueryFirst<AnswerGetResponse>( @"EXEC dbo.Answer_Post @QuestionId = @QuestionId, @Content = @Content, @UserId = @UserId, @UserName = @UserName, @Created = @Created", answer);
+        await connection.OpenAsync();
+        return await connection.QueryFirstAsync<AnswerGetResponse>( @"EXEC dbo.Answer_Post @QuestionId = @QuestionId, @Content = @Content, @UserId = @UserId, @UserName = @UserName, @Created = @Created", answer);
       }
     }
   }
