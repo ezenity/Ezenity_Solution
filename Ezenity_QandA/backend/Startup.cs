@@ -101,9 +101,11 @@ namespace Ezenity_QandA
             services.AddCors(options =>
               options.AddPolicy("CorsPolicy", builder =>
                 builder
+                  .WithOrigins(Configuration["Frontend"])
                   .AllowAnyMethod()
                   .AllowAnyHeader()
-                  .WithOrigins(Configuration["Frontend"])));
+              )
+            );
 
 
         }

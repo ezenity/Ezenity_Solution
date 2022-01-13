@@ -74,10 +74,29 @@ export const getQuestion = async (
   return results.length === 0 ? null : results[0];
 };
 
-// Function that returns unanswered questions
+/**
+ * Leverages the native brower 'fetch' function to interact with the
+ * REST API to get any unanswered questions.
+ *
+ * @returns unanswered questions
+ */
 export const getUnansweredQuestions = async (): Promise<QuestionData[]> => {
-  await wait(500);
-  return questions.filter((q) => q.answers.length === 0);
+  // Local
+  // await wait(500);
+  // return questions.filter((q) => q.answers.length === 0);
+
+  // REST API
+  let unansweredQuestions: QuestionData[] = [];
+  const response = await fetch(
+    // 'http://localhost:17525/api/questions/unanswered',
+    'https://localhost:44368/api/questions/unanswered',
+  );
+  unansweredQuestions = await response.json();
+  // Fix the function TypeError by mapping the 'created' property to a 'Date' object in the return
+  return unansweredQuestions.map((question) => ({
+    ...question,
+    created: new Date(question.created),
+  }));
 };
 
 // Asynchronous 'wait' function to help with simulating a web API call
