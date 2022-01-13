@@ -11,7 +11,7 @@ namespace Ezenity_QandA.Authorization
    * By inheriting the 'AuthorizationHandler' class, I can choose which requirement it is handling as
    * a generic parameter
    */
-  public class MustBeQuestionAuhorHandler: AuthorizationHandler<MustBeQuestionAuthorRequirement>
+  public class MustBeQuestionAuthorHandler: AuthorizationHandler<MustBeQuestionAuthorRequirement>
   {
     private readonly IDataRepository _dataRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
@@ -19,7 +19,7 @@ namespace Ezenity_QandA.Authorization
     /**
      * Inject both data repository and the httP context into the class
      */
-    public MustBeQuestionAuhorHandler(IDataRepository dataRepository, IHttpContextAccessor httpContextAccessor)
+    public MustBeQuestionAuthorHandler(IDataRepository dataRepository, IHttpContextAccessor httpContextAccessor)
     {
       _dataRepository = dataRepository;
       _httpContextAccessor = httpContextAccessor;
