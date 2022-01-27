@@ -88,8 +88,8 @@ export const getUnansweredQuestions = async (): Promise<QuestionData[]> => {
   // REST API
   let unansweredQuestions: QuestionData[] = [];
   const response = await fetch(
-    // 'http://localhost:17525/api/questions/unanswered',
-    'https://localhost:44368/api/questions/unanswered',
+    'http://localhost:45516/api/questions/unanswered',
+    //'https://localhost:44368/api/questions/unanswered',
   );
   unansweredQuestions = await response.json();
   // Fix the function TypeError by mapping the 'created' property to a 'Date' object in the return

@@ -12,8 +12,8 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      //"launchUrl": "swagger",
-      "launchUrl": "api/questions",
+      "launchUrl": "swagger",
+      //"launchUrl": "api/questions",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
